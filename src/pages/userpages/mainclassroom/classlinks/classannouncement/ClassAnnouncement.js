@@ -198,7 +198,8 @@ export default function ClassAnnouncement() {
       created: Timestamp.now(),
       ownerId: user.currentUser.uid,
       ownerName: ownerName,
-      announcementId: id
+      announcementId: id,
+      photoUrl: displayPhoto
     }
     createDoc('announcement', data).then(() => {
       const file = acceptedFiles.map(file => Object.assign(file))

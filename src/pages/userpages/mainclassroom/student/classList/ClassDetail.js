@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { onSnapshot, collection, query, where, Timestamp } from 'firebase/firestore';
 import { db } from '../../../../../utils/firebase';
-import { getUser, acceptStudent, removeStudent, getDocsByCollection } from '../../../../../utils/firebaseUtil'
+import { getUser } from '../../../../../utils/firebaseUtil'
 
 import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
@@ -12,44 +12,16 @@ import {
   Typography,
   Box,
   Grid,
-  Button,
-  Menu,
-  MenuItem,
-  TableContainer,
-  Paper,
-  Table,
-  TableHead,
-  TableRow,
-  TableBody,
   Snackbar,
   Alert
 } from '@mui/material';
 
-import { styled } from '@mui/material/styles';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-
-
 import { useParams } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
-
 
 import Studentdrawer from '../../classdrawer/ClassDrawerStudent';
-import AssignmentIcon from '@mui/icons-material/Assignment';
 
-
-import Fade from '@mui/material/Fade';
-import Divider from '@mui/material/Divider';
-import DateRangeIcon from '@mui/icons-material/DateRange';
-import AddToDriveIcon from '@mui/icons-material/AddToDrive';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import bgImage from '../../../../../assets/img/jpg/animatedcomputer.jpg';
 
-// import CreateActivityDialog from '../classwork/CreateActivityDialog';
-// import CreateQuizDialog from '../classwork/CreateQuizDialog';
-// import CreateExamDialog from '../classwork/CreateExamDialog';
-// import CreateLabDialog from '../classwork/CreateLabDialog';
-
-import CreateClass from './CreateClass';
 import JoinClass from './JoinClass';
 
 const style = {
@@ -63,7 +35,6 @@ const style = {
   },
   gridcontainerClass: {
     display: "flex",
-    // boxShadow: '0 3px 5px 2px rgb(126 126 126 / 30%)',
     marginTop: 5,
     padding: 2,
     maxWidth: 900
@@ -121,34 +92,11 @@ const style = {
   }
 }
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
-
 export default function ClassListDetail() {
 
   const history = useHistory();
   const { user } = useSelector((state) => state);
   const params = useParams()
-  const id = (uuidv4().slice(-8));
-
-
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isTeacher, setIsTeacher] = useState(false)
   const [classCode, setClassCode] = useState('')
@@ -296,7 +244,6 @@ export default function ClassListDetail() {
         setClassCode(doc.data().classCode)
         setTitle(doc.data().className)
       })
-      // setLoading(false);
     }
     )
     return unsubscribe;
@@ -364,23 +311,9 @@ export default function ClassListDetail() {
     return (
       classroom && classroom.map(item =>
         <>
-          <Box component={Grid} container justifyContent="center" >
-
-            <Grid container sx={style.gridcontainerClass} >
-              <Grid xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }} container>
-                <Typography variant="h5" sx={style.linkStyle} onClick={() => null}>Classroom name : {item.className}</Typography>
-              </Grid>
-              <Grid container xs={12} direction='column'>
-                <Typography variant="p" sx={{ marginTop: 1, fontWeight: "bold" }}>section: {item.section}</Typography>
-                <Typography variant="p" sx={{ marginTop: 1, fontWeight: "bold" }}>subject: {item.subject}</Typography>
-                <Typography variant="p" sx={{ marginTop: 1, fontWeight: "bold" }}>room: {item.room}</Typography>
-              </Grid>
-            </Grid>
-
-          </Box>
 
           <Box component={Grid} container justifyContent="center" >
-            <Box sx={{maxWidth: 900}}>
+            <Box sx={{ maxWidth: 900 }}>
               <Grid container sx={style.gridcontainerClass} style={{ padding: 0 }}>
                 <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Assignment List</Typography>
               </Grid>
@@ -388,6 +321,7 @@ export default function ClassListDetail() {
                 <Grid container sx={style.gridcontainerCard} onClick={() => reDirectAssignment(item.classCode, item.assignmentId, item.created, item.dueDate)}>
                   <Grid xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }} container>
                     <Typography variant="h5" sx={style.linkStyle} onClick={() => null}>Assignment name : {item.title}</Typography>
+                    <Typography variant="p" sx={style.linkStyle} onClick={() => null}>Score : {item.score ? item.score : 0}</Typography>
                   </Grid>
                   <Grid container xs={12} direction='column'>
                     <Typography sx={{ fontWeight: 'bold' }}>created: {new Date(item.created.seconds * 1000).toLocaleDateString()} {new Date(item.created.seconds * 1000).toLocaleTimeString()}</Typography>
@@ -538,33 +472,12 @@ export default function ClassListDetail() {
         </Box>
       }
 
-
-      {/* <CreateClass
-                isClassOpen={classOpen}
-                toggleClass={handleOpenClass}
-            /> */}
       <JoinClass
         isJoinClassOpen={joinClassOpen}
         toggleJoinClass={handleOpenJoinClass}
         handleOpenJoinClass={handleOpenJoinClass}
         userId={user.currentUser.uid}
       />
-      {/* <CreateActivityDialog
-                isCreateActivityOpen={createActivityOpen}
-                toggleCreateActivity={handleCreateActivityOpen}
-            />
-            <CreateLabDialog
-                isCreateLabOpen={createLabOpen}
-                toggleCreateLab={handleCreateLabOpen}
-            />
-            <CreateQuizDialog
-                isCreateQuizOpen={createQuizOpen}
-                toggleCreateQuiz={handleCreateQuizOpen}
-            />
-            <CreateExamDialog
-                isCreateExamOpen={createExamOpen}
-                toggleCreateExam={handleCreateExamOpen}
-            /> */}
     </Studentdrawer >
   )
 }

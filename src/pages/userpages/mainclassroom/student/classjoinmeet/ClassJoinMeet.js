@@ -117,7 +117,6 @@ export default function ClassJoinMeet() {
                 setClassCode(doc.data().classCode)
                 setTitle(doc.data().className)
             })
-            // setLoading(false);
         }
         )
         return unsubscribe;
@@ -134,26 +133,11 @@ export default function ClassJoinMeet() {
                     <Grid item sm>
                         <Grid container justifyContent="center" sx={style.gmeetContainer}>
                             <Grid Container>
-                                {/* <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-                                    <InputLabel htmlFor="outlined-adornment-password">meet.google.com</InputLabel>
-                                    <OutlinedInput
-                                        id="outlined-adornment-password"
-                                        endAdornment={
-                                            <InputAdornment position="end">
-                                                <DriveFileRenameOutlineIcon />
-                                            </InputAdornment>
-                                        }
-                                        label="Password"
-                                    />
-                                </FormControl> */}
                                 <Typography sx={{ fontWeight: "bold" }}>Meeting Link :</Typography>
                                 <Link href={meetingLink} target="_blank" underline="none" sx={{ fontWeight: "bold" }}>
                                     {meetingLink}
                                 </Link>
                             </Grid>
-                            {/* <Grid container justifyContent="center">
-                                <Button variant="contained" sx={style.btnStyle}>Save</Button>
-                            </Grid> */}
                         </Grid>
                     </Grid>
                     <Grid item sm>

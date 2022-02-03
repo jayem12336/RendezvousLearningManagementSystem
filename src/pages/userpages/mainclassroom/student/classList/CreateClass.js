@@ -12,9 +12,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
 import { v4 as uuidv4 } from 'uuid';
-
-import { db } from '../../../../../utils/firebase';
-import { setDoc, doc } from '@firebase/firestore';
 import {createClassDoc} from '../../../../../utils/firebaseUtil'
 
 

@@ -289,7 +289,6 @@ export default function Laboratory() {
         open={open}
         onClose={handleClose}
         message="I love snacks"
-      // key={vertical + horizontal}
       >
         <Alert onClose={handleClose} severity="success" sx={{ width: '100%', fontWeight: "bold" }}>
           Successfully Saved Lab
@@ -306,14 +305,6 @@ export default function Laboratory() {
                 value={labTitle}
                 onChange={handleTitle}
               />
-              {/* <Button 
-                variant="contained" 
-                color="primary" 
-                sx={{ marginTop: 2, marginBottom: 2 }}
-                onClick={() => saveLab()}
-              >
-                {isNew ? 'Save' : 'Update'}
-              </Button> */}
             </Grid>
 
             <FormControl sx={{ width: 500, marginBottom: 2 }}>
@@ -324,22 +315,12 @@ export default function Laboratory() {
                 value={studentName}
                 onChange={handleChange}
                 input={<OutlinedInput id="select-multiple-chip" label="Assign Student" />}
-              // renderValue={(selected, item) => (
-              //   console.log(selected),
-              //   <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              //     {selected.map((value) => (
-              //       <Chip key={value} label={value}  />
-              //     ))}
-              //   </Box>
-              // )}
-              // MenuProps={MenuProps}
               >
                 {studentsList.map((name, index) => (
                   <MenuItem
                     key={name.value}
                     value={name.value}
                     name={name.value}
-                  // style={getStyles(name, personName, theme)}
                   >
                     {name.label}
                   </MenuItem>
@@ -369,18 +350,6 @@ export default function Laboratory() {
                 />
                 <Box sx={{ marginTop: 2 }} container component={Grid} justifyContent="space-between">
                   <Grid item>
-                    {/* <IconButton sx={style.iconStyle}>
-                      <AddToDriveIcon />
-                    </IconButton>
-                    <IconButton sx={style.iconStyle}>
-                      <FileUploadIcon />
-                    </IconButton>
-                    <IconButton sx={style.iconStyle}>
-                      <InsertLinkIcon />
-                    </IconButton>
-                    <IconButton sx={style.iconStyle}>
-                      <YouTubeIcon />
-                    </IconButton> */}
                   </Grid>
                   <Grid item sx={{ marginTop: 0.5 }}>
                     <Button
@@ -402,36 +371,6 @@ export default function Laboratory() {
               </Grid>
             </Grid>
           </Grid>
-          {/* <Box sx={style.pane, style.topPane}>
-            <Editor
-              language="xml"
-              displayName="HTML"
-              value={html}
-              onChange={setHtml}
-            />
-            <Editor
-              language="css"
-              displayName="CSS"
-              value={css}
-              onChange={setCss}
-            />
-            <Editor
-              language="javascript"
-              displayName="JS"
-              value={js}
-              onChange={setJs}
-            />
-          </Box>
-          <Box sx={style.pane}>
-            <iframe
-              srcDoc={srcDoc}
-              title="output"
-              sandbox="allow-scripts"
-              frameBorder="0"
-              width="100%"
-              height="100%"
-            />
-          </Box> */}
         </>
       </Box>
     </Teacherdrawer>

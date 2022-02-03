@@ -86,9 +86,6 @@ export default function ClassQuiz() {
       getStudentList()
     }
   }, [user]);
-  // useEffect(() => {
-  //   getStudentList()
-  // }, []);
 
   const getStudentList = () => {
     getDocsByCollection('users').then(data => {
@@ -112,30 +109,9 @@ export default function ClassQuiz() {
   const getQuiz = () => {
     getDocsByCollection('quiz')
     .then(item => {
-      // const data = item.filter(item => item.classCode === params.id)
       setQuizData(item)
     })
   }
-
-  
-  // const saveAnnoucement = () => {
-  //   const data = {
-  //     body: announcementContent,
-  //     classCode: params.id,
-  //     created: Timestamp.now(),
-  //     ownerId: user.currentUser.uid,
-  //     ownerName: user.currentUser.displayName
-  //   }
-  //   createDoc('announcement',data).then(() => {
-  //     setAnnoucncementContent('')
-  //     getDataAnnouncement()
-  //   })
-  // }
-
-  // const cancelAnnouncement = () => {
-  //   setShowInput(false)
-  //   setAnnoucncementContent('')
-  // }
 
   const addQuestion = () => {
     let questions = {
@@ -179,7 +155,6 @@ export default function ClassQuiz() {
       target: { value },
     } = event;
     setStudentName(
-      // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
   };
@@ -252,7 +227,6 @@ export default function ClassQuiz() {
             />
           </Grid>          
           
-          {/* <Typography>{item.ownerName}</Typography> */}
         </Grid>
         <Grid item xs={12}>
         <TextField 
@@ -263,19 +237,7 @@ export default function ClassQuiz() {
             value={item.answerKey}
             onChange={(e) => handleQuizChange(e, index)}
           />
-          {/* <Typography sx={{ marginTop: 2 }}>{item.body}</Typography> */}
         </Grid>
-      
-        {/* <Grid xs={12} justifyContent='flex-end' container>
-          <Button 
-            variant="contained" 
-            color="primary" 
-            sx={{ marginTop: 2 }}
-            onClick={(e) => handleQuizChange(e, index)}
-          >
-            Delete
-          </Button>
-        </Grid> */}
       </Grid>
     )
   }
@@ -291,8 +253,6 @@ export default function ClassQuiz() {
                   label='Quiz Title' 
                   variant="outlined" 
                   sx={{marginRight: 2, marginBottom: 2}}
-                  // value={labTitle}
-                  // onChange={handleTitle}
                 />
                 <FormControl sx={{ width: 500 }}>
                   <InputLabel id="select-student-label">Assign Student</InputLabel>
@@ -302,22 +262,12 @@ export default function ClassQuiz() {
                     value={studentName}
                     onChange={handleChange}
                     input={<OutlinedInput id="select-multiple-chip" label="Assign Student" />}
-                    // renderValue={(selected, item) => (
-                    //   console.log(selected),
-                    //   <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                    //     {selected.map((value) => (
-                    //       <Chip key={value} label={value}  />
-                    //     ))}
-                    //   </Box>
-                    // )}
-                    // MenuProps={MenuProps}
                   >
                     {studentsList.map((name) => (
                       <MenuItem
                         key={name.value}
                         value={name.value}
                         name={name.value}
-                        // style={getStyles(name, personName, theme)}
                       >
                         {name.label}
                       </MenuItem>
@@ -337,8 +287,6 @@ export default function ClassQuiz() {
                 variant="filled"
                 multiline
                 placeholder="Please enter direction"
-                // value={announcementContent}
-                // onChange={handleAnnoucement}
                 fullWidth
                 minRows={5}
               />
@@ -357,22 +305,6 @@ export default function ClassQuiz() {
                     <YouTubeIcon />
                   </IconButton>
                 </Grid>
-                {/* <Grid item sx={{ marginTop: 0.5 }}>
-                  <Button 
-                    style={style.btnStyle} 
-                    // onClick={cancelAnnouncement}
-                  > 
-                    cancel
-                  </Button>
-                  <Button 
-                    variant="contained" 
-                    // disabled={announcementContent ? false : true} 
-                    style={style.btnStyle}
-                    // onClick={saveAnnoucement}
-                  > 
-                    Save
-                  </Button>
-                </Grid> */}
               </Box>
             </Grid>
         </Grid>

@@ -5,7 +5,7 @@ import 'codemirror/mode/xml/xml'
 import 'codemirror/mode/javascript/javascript'
 import 'codemirror/mode/css/css'
 import { Controlled as ControlledEditor } from 'react-codemirror2'
-import AspectRatioOutlinedIcon from '@mui/icons-material/AspectRatioOutlined';
+
 
 const style = {
   editorContainer: {
@@ -43,7 +43,6 @@ export default function Editor(props) {
     value,
     onChange
   } = props
-  const [open, setOpen] = useState(true)
 
   function handleChange(editor, data, value) {
     onChange(value)

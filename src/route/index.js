@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { auth } from '../utils/firebase';
 
-import { setUser , getUserId, logoutInitiate} from '../redux/actions/userAction';
+import { setUser } from '../redux/actions/userAction';
 
 import { getUser } from '../utils/firebaseUtil'
 
@@ -22,22 +22,10 @@ import NewForgot from '../pages/nonuserpages/NewForgot';
 import NotFound from '../pages/nonuserpages/NotFound';
 import NotFoundPage from '../pages/nonuserpages/NotFound';
 
-//userhomepage
-// import DashboardUser from '../pages/userpages/dashboarduser/DashboarduUser';
-// import DashboardProfile from '../pages/userpages/dashboardprofile/DashboardProfile';
-// import DashboardClass from '../pages/userpages/dashboardclassfolder/DashboardClass';
-// import Announcement from '../pages/userpages/announcement'
-// import DashboardCalendar from '../pages/userpages/dashboardcalendar/DashboardCalendar';
-// import DashboardFile from '../pages/userpages/dashboardfile/DashboardFile';
-// import DashboardAbout from '../pages/userpages/dashboardabout/DashboardAbout';
-
 //main classroom
 import ClassAnnouncement from '../pages/userpages/mainclassroom/classlinks/classannouncement/ClassAnnouncement';
-import ClassAnnouncementList from '../pages/userpages/mainclassroom/classlinks/classannouncement';
 import ClassJoinMeet from '../pages/userpages/mainclassroom/classlinks/classjoinmeet/ClassJoinMeet';
-import ClassPeople from '../pages/userpages/mainclassroom/classlinks/classpeople/ClassPeople';
 import { getClassroomData } from '../redux/actions/classAction';
-import ClassWork from '../pages/userpages/mainclassroom/classlinks/classwork/ClassWork';
 import ClassList from '../pages/userpages/mainclassroom/classlinks/classList';
 import ClassListDetail from '../pages/userpages/mainclassroom/classlinks/classList/ClassDetail';
 // import ClassListStudent from '../pages/userpages/mainclassroom/student/classListStudent';
@@ -45,10 +33,7 @@ import Laboratory from '../pages/userpages/mainclassroom/classlinks/classLaborat
 import LaboratoryDetail from '../pages/userpages/mainclassroom/classlinks/classLaboratory/LabDetails'
 import LaboratoryStudent from '../pages/userpages/mainclassroom/classlinks/studentLaboratory/Lab'
 import LaboratoryView from '../pages/userpages/mainclassroom/classlinks/classLaboratory/ViewWork'
-import LabList from '../pages/userpages/mainclassroom/classlinks/classLaboratory'
-import ClassQuiz from '../pages/userpages/mainclassroom/classlinks/classQuiz'
 import ClassNewQuiz from '../pages/userpages/mainclassroom/classlinks/classQuiz/NewQuiz'
-import ClassQuizList from '../pages/userpages/mainclassroom/classlinks/classQuiz/ClassQuizList'
 import QuizDetail from '../pages/userpages/mainclassroom/classlinks/classQuiz/QuizDetail'
 import Profile from '../pages/userpages/mainclassroom/classlinks/profile'
 import Calendar from '../pages/userpages/mainclassroom/classlinks/calendar'

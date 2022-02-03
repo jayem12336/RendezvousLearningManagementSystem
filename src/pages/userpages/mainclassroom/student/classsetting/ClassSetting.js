@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { onSnapshot, collection, query, where } from 'firebase/firestore';
 import { db } from '../../../../../utils/firebase';
-import { getUser, acceptStudent, removeStudent, getDocsByCollection, unenrollStudent } from '../../../../../utils/firebaseUtil'
+import { getUser,  unenrollStudent } from '../../../../../utils/firebaseUtil'
 import Input from '../../../../../components/Input';
 
 import { useSelector } from 'react-redux';
@@ -10,20 +10,12 @@ import {
     Typography,
     Box,
     Grid,
-    TextField,
     Button,
     Snackbar,
     Alert
 } from '@mui/material';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
-import Classdrawer from '../../classdrawer/ClassDrawer';
-import Image from '../../../../../assets/img/png/bginside.png'
-import OutlinedInput from '@mui/material/OutlinedInput';
-import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 
+import Image from '../../../../../assets/img/png/bginside.png'
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router';
 
@@ -32,7 +24,7 @@ import ConfirmDelete from './ConfirmDelete'
 import StudentDrawer from '../../classdrawer/ClassDrawerStudent';
 const style = {
     gridcontainer: {
-        maxWidth: 1200,
+        maxWidth: 1000,
     },
     btnStyle: {
         marginTop: 2,
@@ -79,6 +71,15 @@ const style = {
         marginTop: 5,
         maxWidth: 400,
         borderRadius: 2
+    },
+    classInfoContainer: {
+        display: "flex",
+        paddingLeft: 3,
+        paddingRight: 3,
+        paddingTop: 3,
+        paddingBottom: 3,
+        boxShadow: '0 3px 5px 2px rgb(126 126 126 / 30%)',
+        marginTop: 5,
     }
 }
 
@@ -94,7 +95,15 @@ export default function ClassSetting() {
 
     const [title, setTitle] = useState('')
 
+    const [room, setRoom] = useState('')
+
+    const [section, setSection] = useState('')
+
+    const [subject, setSubject] = useState('')
+
     const [isTeacher, setIsTeacher] = useState(false)
+
+    const [isTeacherName, setIsTeacherName] = useState(false)
 
     const [openDeleteSnack, setOpenDeleteSnack] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
@@ -110,6 +119,7 @@ export default function ClassSetting() {
             getUser().then(data => {
                 data.map(item => {
                     setIsTeacher(item.isTeacher)
+                   
                 })
             })
         }
@@ -127,6 +137,11 @@ export default function ClassSetting() {
             snapshot.docs.map(doc => {
                 setClassCode(doc.data().classCode)
                 setTitle(doc.data().className)
+                setSection(doc.data().section)
+                setRoom(doc.data().room)
+                setSubject(doc.data().subject)
+                setIsTeacherName(doc.data().ownerName)
+            
             })
             // setLoading(false);
         }
@@ -169,9 +184,30 @@ export default function ClassSetting() {
                     Successfully Unenrolled
                 </Alert>
             </Snackbar>
+
             <Box component={Grid} container justifyContent="center" sx={{ paddingTop: 10 }}>
                 <Grid container justifyContent="center" sx={style.gridcontainer}>
                     <Grid item sm>
+                        <Grid container sx={style.classInfoContainer} justifyContent="center">
+                            <Grid container justifyContent="center">
+                                <Typography sx={{ fontWeight: "bold", fontSize: 20 }}>Class Information</Typography>
+                            </Grid>
+                            <Grid container justifyContent="flex-start" sx={{ marginTop: 2 }}>
+                                <Typography sx={{ fontWeight: "bold" }}>Teacher : {isTeacherName}</Typography>
+                            </Grid>
+                            <Grid container justifyContent="flex-start" sx={{ marginTop: 1 }}>
+                                <Typography sx={{ fontWeight: "bold" }}>Class Name : {title}</Typography>
+                            </Grid>
+                            <Grid container justifyContent="flex-start" sx={{ marginTop: 1 }}>
+                                <Typography sx={{ fontWeight: "bold" }}>Section : {section}</Typography>
+                            </Grid>
+                            <Grid container justifyContent="flex-start" sx={{ marginTop: 1 }}>
+                                <Typography sx={{ fontWeight: "bold" }}>Subject Code : {subject}</Typography>
+                            </Grid>
+                            <Grid container justifyContent="flex-start" sx={{ marginTop: 1 }}>
+                                <Typography sx={{ fontWeight: "bold" }}>Room : {room}</Typography>
+                            </Grid>
+                        </Grid>
                         <Grid container sx={style.settingsContainer} justifyContent="flex-start">
                             <Grid container justifyContent="center">
                                 <Typography sx={{ fontWeight: "bold" }}>Class Code</Typography>
@@ -198,7 +234,10 @@ export default function ClassSetting() {
                                     },
                                     fontWeight: "bold",
                                     fontSize: 12,
-                                    marginLeft: 5
+                                    marginLeft: {
+                                        xs: 4,
+                                        md: 10
+                                    }
                                 }}
                                 onClick={() => setIsOpen(true)}
                             >UNENROLL CLASSROOM</Button>

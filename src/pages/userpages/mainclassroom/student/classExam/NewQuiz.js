@@ -262,7 +262,6 @@ export default function ClassQuiz() {
       target: { value },
     } = event;
     setStudentName(
-      // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
   };
@@ -298,7 +297,6 @@ export default function ClassQuiz() {
           <Grid xs={12} container direction='column'>
             {item.answers && item.answers.map((item,i) => (
               <Grid container alignItems="center">
-                {/* <Typography sx={{marginRight: 2}}>a.)</Typography> */}
                 <TextField 
                   label={`Answer ${index + 1}`} 
                   variant="outlined" 
@@ -306,7 +304,6 @@ export default function ClassQuiz() {
                   name='answer'
                   value={item}
                   disabled
-                  // onChange={(e) => onAnswerChange(e, i,item)}
                 />
               </Grid>
             ))
@@ -322,7 +319,6 @@ export default function ClassQuiz() {
               value={item.correctAnswer}
               onChange={(e) => handleQuizChange(e, index)}
             />
-            {/* <Typography sx={{ marginTop: 2 }}>{item.body}</Typography> */}
           </Grid>
           <Grid container alignItems="center">
             <TextField 
@@ -336,17 +332,6 @@ export default function ClassQuiz() {
               onChange={(e) => handleQuizChange(e, index)}
             />
           </Grid>
-        
-          {/* <Grid xs={12} justifyContent='flex-end' container>
-            <Button 
-              variant="contained" 
-              color="primary" 
-              sx={{ marginTop: 2 }}
-              onClick={(e) => handleQuizChange(e, index)}
-            >
-              Delete
-            </Button>
-          </Grid> */}
         </Grid>
       )}
       {addQuestion && addQuestion.map((item,index) => 
@@ -365,13 +350,11 @@ export default function ClassQuiz() {
           <Grid xs={12} container direction='column'>
             {item.answers && item.answers.map((item,i) => (
               <Grid container alignItems="center">
-                {/* <Typography sx={{marginRight: 2}}>a.)</Typography> */}
                 <TextField 
                   label={`Answer ${i + 1}`} 
                   variant="outlined" 
                   sx={{marginRight: 2, marginBottom: 2}}
                   name='answer'
-                  // value={item}
                   onChange={(e) => onAnswerChange(e, i,item)}
                 />
               </Grid>
@@ -400,22 +383,12 @@ export default function ClassQuiz() {
                   <MenuItem
                     key={name}
                     value={name}
-                    // style={getStyles(name, personName, theme)}
                   >
                     {name}
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
-          {/* <TextField 
-              label='Answer Key' 
-              variant="outlined" 
-              sx={{marginRight: 2, marginBottom: 2}}
-              name='correctAnswer'
-              value={item.answerKey}
-              onChange={(e) => handleQuizChange(e, index)}
-            /> */}
-            {/* <Typography sx={{ marginTop: 2 }}>{item.body}</Typography> */}
           </Grid>
           <Grid container alignItems="center">
             <TextField 
@@ -428,17 +401,6 @@ export default function ClassQuiz() {
               onChange={(e) => handleQuizChange(e, index)}
             />
           </Grid>
-        
-          {/* <Grid xs={12} justifyContent='flex-end' container>
-            <Button 
-              variant="contained" 
-              color="primary" 
-              sx={{ marginTop: 2 }}
-              onClick={(e) => handleQuizChange(e, index)}
-            >
-              Delete
-            </Button>
-          </Grid> */}
         </Grid>
       )}
     </>
@@ -474,7 +436,6 @@ export default function ClassQuiz() {
                       key={name.value}
                       value={name.value}
                       name={name.value}
-                    // style={getStyles(name, personName, theme)}
                     >
                       {name.label}
                     </MenuItem>
@@ -494,45 +455,10 @@ export default function ClassQuiz() {
               variant="filled"
               multiline
               placeholder="Please enter direction"
-              // value={announcementContent}
-              // onChange={handleAnnoucement}
               fullWidth
               minRows={5}
             />
             <Box sx={{ marginTop: 2 }} container component={Grid} justifyContent="space-between">
-
-              {/*  <Grid item>
-                <IconButton sx={style.iconStyle}>
-                  <AddToDriveIcon />
-                </IconButton>
-                <IconButton sx={style.iconStyle}>
-                  <FileUploadIcon />
-                </IconButton>
-                <IconButton sx={style.iconStyle}>
-                  <InsertLinkIcon />
-                </IconButton>
-                <IconButton sx={style.iconStyle}>
-                  <YouTubeIcon />
-                </IconButton>
-              </Grid>
-             */}
-
-              {/* <Grid item sx={{ marginTop: 0.5 }}>
-                  <Button 
-                    style={style.btnStyle} 
-                    // onClick={cancelAnnouncement}
-                  > 
-                    cancel
-                  </Button>
-                  <Button 
-                    variant="contained" 
-                    // disabled={announcementContent ? false : true} 
-                    style={style.btnStyle}
-                    // onClick={saveAnnoucement}
-                  > 
-                    Save
-                  </Button>
-                </Grid> */}
             </Box>
           </Grid>
         </Grid>
@@ -550,16 +476,6 @@ export default function ClassQuiz() {
         {quizData && quizBody()}
 
         <Grid container sx={style.addBtncontainer} justifyContent='space-between'>
-          {/* <Box sx={{display:'flex', alignItems:'center'}}>
-          <TextField
-            variant="outlined"
-            placeholder="quiz duration"
-            type="number"
-            value={duration}
-            onChange={handleDuration}
-          />
-          <Typography sx={{ marginLeft: 2 }}>minutes</Typography> 
-          </Box> */}
           <Box sx={{display:'flex', alignItems:'center'}}>
             <Button 
               variant="contained" 

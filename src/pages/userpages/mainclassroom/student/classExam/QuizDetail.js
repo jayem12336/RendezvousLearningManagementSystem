@@ -1,75 +1,58 @@
 import React, { useState, useEffect } from 'react';
 
 import {
-    Typography,
-    Box,
-    Grid,
-    Avatar,
-    TextField,
-    Button,
-    IconButton,
-    FormControl,
-    InputLabel,
-    Select,
-    OutlinedInput,
-    Chip,
-    MenuItem,
+  Typography,
+  Box,
+  Grid,
+  TextField,
+  Button,
 } from '@mui/material';
-import DateAdapter from '@mui/lab/AdapterMoment';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import DatePicker from '@mui/lab/DatePicker';
-
-
-
 import Studentdrawer from '../../classdrawer/ClassDrawerStudent';
 import { Timestamp } from 'firebase/firestore';
 
-import {getStudentByAssigned, getDocsByCollection, saveExamStudent, saveExamRecord, getExamStudent} from '../../../../../utils/firebaseUtil';
-import { useParams} from 'react-router-dom';
+import { getStudentByAssigned, getDocsByCollection, saveExamStudent, saveExamRecord, getExamStudent } from '../../../../../utils/firebaseUtil';
+import { useParams } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { useHistory } from 'react-router';
 import { v4 as uuidv4 } from 'uuid';
-
-import AddToDriveIcon from '@mui/icons-material/AddToDrive';
-import FileUploadIcon from '@mui/icons-material/FileUpload';
-import InsertLinkIcon from '@mui/icons-material/InsertLink';
-import YouTubeIcon from '@mui/icons-material/YouTube';
-
 import Quiz from 'react-quiz-component';
 
-  
 const style = {
-    gridcontainer: {
-        display: "flex",
-        boxShadow: '0 3px 5px 2px rgb(126 126 126 / 30%)',
-        marginTop: 5,
-        padding: 2,
-        maxWidth: 1000,
-        '.react-quiz-container': {
-          width: '100%'
-        }
-    },
-    main: {
-        display: "flex",
-        cursor: "pointer",
-        alignItems: "center",
-    },
-    iconStyle: {
-        color: (theme) => theme.palette.primary.main,
-        margin: 0.5
-    },
-    btnStyle: {
-        width: 'auto',
-        marginLeft: 5,
-    },
-    btnStyleFooter: {
-      width: '100%',
-      marginTop: 12
+  gridcontainer: {
+    display: "flex",
+    boxShadow: '0 3px 5px 2px rgb(126 126 126 / 30%)',
+    marginTop: 5,
+    padding: 2,
+    maxWidth: 1000,
+    '.react-quiz-container': {
+      width: '100%'
+    }
   },
-    addBtncontainer: {
-      display: "flex",
-      marginTop: 5,
-      maxWidth: 1000
+  main: {
+    display: "flex",
+    cursor: "pointer",
+    alignItems: "center",
+  },
+  iconStyle: {
+    color: (theme) => theme.palette.primary.main,
+    margin: 0.5
+  },
+  btnStyle: {
+    width: 'auto',
+    marginLeft: 5,
+  },
+  btnStyleFooter: {
+    width: '100%',
+    marginTop: 12,
+    fontWeight: "bold"
+  },
+  addBtncontainer: {
+    display: "flex",
+    marginTop: 5,
+    maxWidth: 1000
+  },
+  inputText: {
+    fontWeight: 'bold'
   },
 }
 
@@ -79,7 +62,7 @@ export default function QuizDetail() {
     console.log(obj);
     //
   }
-  
+
   // console.log(test.numberOfCorrectAnswers)
 
   const [quizData, setQuizData] = useState([])
@@ -105,65 +88,61 @@ export default function QuizDetail() {
 
 
   useEffect(() => {
-    if(Object.keys(user.currentUser).length !== 0){
+    if (Object.keys(user.currentUser).length !== 0) {
       getStudentList()
     }
   }, [user]);
-  // useEffect(() => {
-  //   getStudentList()
-  // }, []);
 
-  const renderCustomResultPage = (obj) => {  
+
+  const renderCustomResultPage = (obj) => {
     const data = result.length !== 0 ? result : obj
-    // console.log(data.userInput[0])
-    // console.log(obj)
     saveQuiz(data)
     return (
       <>
-        <Typography variant='h6'>
+        <Typography variant='h6' sx={{ fontWeight: "bold" }}>
           You have completed the exam. You got {data.numberOfCorrectAnswers} out of {data.numberOfQuestions} questions.
         </Typography>
-        <Typography variant='h6'>
+        <Typography variant='h6' sx={{ fontWeight: "bold" }}>
           You scored {data.correctPoints} out of {data.totalPoints}.
         </Typography>
-        
-          {data.questions.map((item, index) => 
-            <Grid container sx={style.gridcontainer} justifyContent='space-between'>
-              <Grid container xs={12}>
-                <Typography variant='p'>
-                  {item.question}
-                </Typography>
-              </Grid>
-              {item.answers.map((answer,i) => 
-                <Grid container xs={12} style={{marginTop:8}}>
-                  <Button 
-                    variant={answer == data.userInput[index] ? 'contained' : 'outlined'} 
-                    color={data.userInput[index] == item.correctAnswer ? 'success' : 'error'}
-                    disbaled
-                  >
-                    {answer}
-                  </Button>
-                </Grid>   
-              )}
-              <Grid container xs={12} style={{marginTop:8}}>
-                <Typography variant='p'>
-                  Correct answer : {item.correctAnswer}
-                </Typography>
-              </Grid>
-              <Grid container xs={12} style={{marginTop:8}}>
-                <Typography variant='p'>
-                  Points : {item.point}
-                </Typography>
-              </Grid>
+
+        {data.questions.map((item, index) =>
+          <Grid container sx={style.gridcontainer} justifyContent='space-between'>
+            <Grid container xs={12}>
+              <Typography variant='p' sx={{ fontWeight: "bold" }}>
+                {item.question}
+              </Typography>
             </Grid>
-          )}
+            {item.answers.map((answer, i) =>
+              <Grid container xs={12} style={{ marginTop: 8 }}>
+                <Button
+                  variant={answer == data.userInput[index] ? 'contained' : 'outlined'}
+                  color={data.userInput[index] == item.correctAnswer ? 'success' : 'error'}
+                  disbaled
+                >
+                  {answer}
+                </Button>
+              </Grid>
+            )}
+            <Grid container xs={12} style={{ marginTop: 8 }}>
+              <Typography variant='p' sx={{ fontWeight: "bold" }}>
+                Correct answer : {item.correctAnswer}
+              </Typography>
+            </Grid>
+            <Grid container xs={12} style={{ marginTop: 8 }}>
+              <Typography variant='p' sx={{ fontWeight: "bold" }}>
+                Points : {item.point}
+              </Typography>
+            </Grid>
+          </Grid>
+        )}
         <Grid item sx={{ marginTop: 0.5 }}>
-          <Button 
-            variant="contained" 
+          <Button
+            variant="contained"
             // disabled={announcementContent ? false : true} 
             style={style.btnStyleFooter}
             onClick={() => history.push(`/studentclassroomdetail/${params.id}`)}
-          > 
+          >
             Go To Class Dashboard
           </Button>
         </Grid>
@@ -185,16 +164,16 @@ export default function QuizDetail() {
     getStudentByAssigned(params.id).then(item => {
       const students = item.students.filter(item => item.isJoin === true).map(item => {
         let studentArr = []
-        studentArr = {label:item.displayName, value:item.ownerId}
+        studentArr = { label: item.displayName, value: item.ownerId }
         return studentArr
       })
       setStudentsList(students)
-  })
+    })
     getDocsByCollection('createclass').then(data => {
       data.filter(item => item.classCode === params.id).map(item => {
         setSubject(item.subject)
       })
-      
+
     })
     // getDocsByCollection('quiz').then(data => {
     //   data.filter(item => item.quizId === params.quizId).map(item => {
@@ -211,9 +190,11 @@ export default function QuizDetail() {
     }
     getExamStudent(studentData).then(item => {
       // setQuizQuestions({questions:item.questions})
-      setQuizQuestions({questions:item.questions,"appLocale": {
-        "startQuizBtn": "Start Exam",
-      } })
+      setQuizQuestions({
+        questions: item.questions, "appLocale": {
+          "startQuizBtn": "Start Exam",
+        }
+      })
       // setQuizQuestions(item.questions)
       setQuizTitle(item.title)
       setDueDate(new Date(item.dueDate.seconds * 1000).toLocaleDateString())
@@ -226,10 +207,10 @@ export default function QuizDetail() {
 
   const getQuiz = () => {
     getDocsByCollection('quiz')
-    .then(item => {
-      // const data = item.filter(item => item.classCode === params.id)
-      setQuizData(item)
-    })
+      .then(item => {
+        // const data = item.filter(item => item.classCode === params.id)
+        setQuizData(item)
+      })
   }
 
   // const addQuestion = () => {
@@ -253,22 +234,22 @@ export default function QuizDetail() {
   // }
 
   const saveQuiz = (result) => {
-      const studentData = {
-        ownerId: user.currentUser.uid,
-        classCode: params.id,
-        students: studentName,
-        title: quizTitle,
-        questions: [...quizQuiestions.questions],
-        duration: duration,
-        created: Timestamp.now(),
-        dueDate: Timestamp.fromDate(new Date(dueDate)),
-        subject: subject,
-        examId: params.examId,
-        studentId: user.currentUser.uid,
-        result: result
-      }
-      saveExamStudent(studentData)
-      saveExamRecord(studentData)
+    const studentData = {
+      ownerId: user.currentUser.uid,
+      classCode: params.id,
+      students: studentName,
+      title: quizTitle,
+      questions: [...quizQuiestions.questions],
+      duration: duration,
+      created: Timestamp.now(),
+      dueDate: Timestamp.fromDate(new Date(dueDate)),
+      subject: subject,
+      examId: params.examId,
+      studentId: user.currentUser.uid,
+      result: result
+    }
+    saveExamStudent(studentData)
+    saveExamRecord(studentData)
     // const timeout = setTimeout(() => {
     //   // history.push(`/classroomdetail/${params.id}`)
     //   console.log(studentData)
@@ -300,18 +281,24 @@ export default function QuizDetail() {
     <Studentdrawer headTitle={quizTitle} classCode={params.id}>
       <Box component={Grid} container justifyContent="center" sx={{ paddingTop: 5 }}>
         <Grid container sx={style.gridcontainer} justifyContent='space-between'>
-          
+
+          <Grid container>
             <Grid container>
-              <Grid container>
-                <TextField 
-                  label='Exam Title' 
-                  variant="outlined" 
-                  sx={{marginRight: 2, marginBottom: 2}}
-                  value={quizTitle}
-                  disabled
-                  onChange={(e) => setQuizTitle(e.target.value)}
-                />
-                {/* <FormControl sx={{ width: 500 }}>
+              <TextField
+                label='Exam Title'
+                variant="outlined"
+                sx={{ marginRight: 2, marginBottom: 2 }}
+                value={quizTitle}
+                disabled
+                onChange={(e) => setQuizTitle(e.target.value)}
+                InputProps={{
+                  sx: style.inputText
+                }}
+                InputLabelProps={{
+                  sx: style.inputText
+                }}
+              />
+              {/* <FormControl sx={{ width: 500 }}>
                   <InputLabel id="select-student-label">Assign Student</InputLabel>
                   <Select
                     labelId="select-student-label"
@@ -332,7 +319,7 @@ export default function QuizDetail() {
                     ))}
                   </Select>
                 </FormControl> */}
-                {/* <LocalizationProvider dateAdapter={DateAdapter}>
+              {/* <LocalizationProvider dateAdapter={DateAdapter}>
                   <DatePicker
                     label="Due Date"
                     value={dueDate}
@@ -341,27 +328,39 @@ export default function QuizDetail() {
                     renderInput={(params) => <TextField {...params} />}
                   />
                 </LocalizationProvider> */}
-                <TextField
+              <TextField
                 variant="filled"
                 disabled
                 value={dueDate}
-                // value={announcementContent}
-                // onChange={handleAnnoucement}
-                
+                InputProps={{
+                  sx: style.inputText
+                }}
+                InputLabelProps={{
+                  sx: style.inputText
+                }}
+              // value={announcementContent}
+              // onChange={handleAnnoucement}
+
               />
-              </Grid>
-              <TextField
-                variant="filled"
-                multiline
-                placeholder="Please enter direction"
-                value={instruction}
-                // onChange={handleAnnoucement}
-                fullWidth
-                disabled
-                minRows={5}
-              />
-              <Box sx={{ marginTop: 2 }} container component={Grid} justifyContent="space-between">
-                {/* <Grid item>
+            </Grid>
+            <TextField
+              variant="filled"
+              multiline
+              placeholder="Please enter direction"
+              value={instruction}
+              // onChange={handleAnnoucement}
+              fullWidth
+              disabled
+              minRows={5}
+              InputProps={{
+                sx: style.inputText
+              }}
+              InputLabelProps={{
+                sx: style.inputText
+              }}
+            />
+            <Box sx={{ marginTop: 2 }} container component={Grid} justifyContent="space-between">
+              {/* <Grid item>
                   <IconButton sx={style.iconStyle}>
                     <AddToDriveIcon />
                   </IconButton>
@@ -375,7 +374,7 @@ export default function QuizDetail() {
                     <YouTubeIcon />
                   </IconButton>
                 </Grid> */}
-                {/* <Grid item sx={{ marginTop: 0.5 }}>
+              {/* <Grid item sx={{ marginTop: 0.5 }}>
                   <Button 
                     style={style.btnStyle} 
                     // onClick={cancelAnnouncement}
@@ -391,8 +390,8 @@ export default function QuizDetail() {
                     Save
                   </Button>
                 </Grid> */}
-              </Box>
-            </Grid>
+            </Box>
+          </Grid>
         </Grid>
         {/* {quizData && quizBody() } */}
 
@@ -401,17 +400,17 @@ export default function QuizDetail() {
             renderCustomResultPage()
             :
             quizQuiestions &&
-            <Quiz 
-              quiz={quizQuiestions} 
-              showDefaultResult={false} 
+            <Quiz
+              quiz={quizQuiestions}
+              showDefaultResult={false}
               // onComplete={setQuizResult}
               customResultPage={renderCustomResultPage}
             />
           }
         </Grid>
-        
 
-       
+
+
       </Box>
     </Studentdrawer>
   )

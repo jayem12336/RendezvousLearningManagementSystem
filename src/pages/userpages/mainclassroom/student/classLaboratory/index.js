@@ -155,21 +155,6 @@ export default function LabList() {
         <Grid container sx={style.gridcontainerClass} >
           <Grid xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }} container>
             <Typography variant="h5" sx={style.linkStyle} onClick={() => null}>{item.title}</Typography>
-            {/* <MoreHorizIcon sx={{ marginTop: 0.5, cursor: 'pointer' }} onClick={handleClick} />
-            <Menu
-                id='simple-menu'
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-                sx={{
-                    marginTop: -1
-                }}
-            >
-              <MenuItem>
-                Unenroll
-              </MenuItem>
-            </Menu> */}
           </Grid>
           <Grid container xs={12} direction='column'>
           <Typography>{new Date(item.created.seconds * 1000).toLocaleDateString()} {new Date(item.created.seconds * 1000).toLocaleTimeString()}</Typography>
@@ -195,20 +180,6 @@ export default function LabList() {
 
     return (
         <Classdrawer>
-            {/* <Box component={Grid} container justifyContent="center" sx={{ paddingTop: 5 }}>
-                <Grid container sx={style.gridcontainer} justifyContent="space-between">
-                    <Grid item>                       
-                        <Button variant="outlined"
-                            sx={style.btnStyle}
-                            id="fade-button"
-                            aria-controls="fade-menu"
-                            aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined}
-                            onClick={() => history.push()}
-                        > Create</Button>
-                    </Grid>
-                </Grid>
-            </Box> */}
             {labList ?
               <Box component={Grid} container justifyContent="" alignItems="" sx={{ paddingTop: 5, flexDirection: "column" }}>
                   {classroomBody()}

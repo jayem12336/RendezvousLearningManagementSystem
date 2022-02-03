@@ -9,9 +9,6 @@ import {
   Snackbar,
 } from '@mui/material';
 
-
-import { v4 as uuidv4 } from 'uuid';
-
 import { getLabStudent, saveLabRecord, saveLabStudent, getStudentByAssigned } from '../../../../../utils/firebaseUtil'
 import { Timestamp } from 'firebase/firestore';
 
@@ -111,8 +108,6 @@ export default function Laboratory() {
   const { user } = useSelector((state) => state);
   const params = useParams()
   const history = useHistory();
-  const id = (uuidv4().slice(-8));
-
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -263,21 +258,6 @@ export default function Laboratory() {
               >
                 {labTitle}
               </Typography>
-              {/* <TextField 
-                label={labTitle === '' ? 'Title' : labTitle} 
-                variant="outlined" 
-                sx={{marginBottom: 2}}
-                value={labTitle}
-                onChange={handleTitle}
-              /> */}
-              {/* <Button 
-                variant="contained" 
-                color="primary" 
-                sx={{ marginTop: 2, marginBottom: 2 }}
-                onClick={() => saveLab()}
-              >
-                {isNew ? 'Save' : 'Update'}
-              </Button> */}
             </Grid>
             <Grid xs={12} justifyContent='flex-start' container>
               <Grid container>
@@ -290,18 +270,6 @@ export default function Laboratory() {
                 </Typography>
                 <Box sx={{ marginTop: 2 }} container component={Grid} justifyContent="space-between">
                   <Grid item>
-                    {/* <IconButton sx={style.iconStyle}>
-                      <AddToDriveIcon />
-                    </IconButton>
-                    <IconButton sx={style.iconStyle}>
-                      <FileUploadIcon />
-                    </IconButton>
-                    <IconButton sx={style.iconStyle}>
-                      <InsertLinkIcon />
-                    </IconButton>
-                    <IconButton sx={style.iconStyle}>
-                      <YouTubeIcon />
-                    </IconButton> */}
                   </Grid>
                   <Grid item sx={{ marginTop: 0.5, marginBottom: 1 }}>
                     <Button
@@ -312,7 +280,6 @@ export default function Laboratory() {
                     </Button>
                     <Button
                       variant="contained"
-                      // disabled={announcementContent ? false : true} 
                       style={style.btnStyle}
                       onClick={saveLab}
                     >

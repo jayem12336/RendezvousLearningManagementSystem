@@ -9,10 +9,9 @@ import {
 } from '@mui/material';
 
 import Studentdrawer from '../../classdrawer/ClassDrawerStudent';
-import { Timestamp } from 'firebase/firestore';
 import Banner from '../../../../../assets/img/jpg/banner.jpg'
 
-import { getAnnouncement, getDocsByCollection, getUser, createDoc } from '../../../../../utils/firebaseUtil';
+import { getAnnouncement, getDocsByCollection, getUser } from '../../../../../utils/firebaseUtil';
 import { useParams } from 'react-router-dom';
 import { useSelector } from "react-redux";
 
@@ -61,8 +60,6 @@ const style = {
 
 export default function ClassAnnouncement() {
 
-  const [showInput, setShowInput] = useState(false);
-  // const [inputValue, setInputValue] = useState('');
   const [announcementData, setAnnouncementData] = useState();
   const [userId, setUserId] = useState('');
   const [className, setClassName] = useState('')
@@ -70,7 +67,6 @@ export default function ClassAnnouncement() {
   const [section, setSection] = useState('')
   const [subject, setSubject] = useState('')
   const [ownerName, setOwnerName] = useState('')
-  const [announcementContent, setAnnoucncementContent] = useState('')
   const [fileList, setFileList] = useState([])
 
   const params = useParams()
@@ -105,6 +101,8 @@ export default function ClassAnnouncement() {
       })
   }
 
+
+
   const getDataAnnouncement = () => {
     getAnnouncement('announcement', 'created')
       .then(item => {
@@ -122,29 +120,7 @@ export default function ClassAnnouncement() {
     })
   }
 
-  const handleAnnoucement = (e) => {
-    setAnnoucncementContent(e.target.value)
-  }
-
-  const saveAnnoucement = () => {
-    const data = {
-      body: announcementContent,
-      classCode: params.id,
-      created: Timestamp.now(),
-      ownerId: user.currentUser.uid,
-      ownerName: user.currentUser.displayName
-    }
-    createDoc('announcement', data).then(() => {
-      setAnnoucncementContent('')
-      getDataAnnouncement()
-    })
-  }
-
-  const cancelAnnouncement = () => {
-    setShowInput(false)
-    setAnnoucncementContent('')
-  }
-
+  console.log(announcementData)
   const announcementBody = () => {
     return announcementData && announcementData.map(item =>
       <Grid container sx={style.gridcontainer} justifyContent='space-between'>

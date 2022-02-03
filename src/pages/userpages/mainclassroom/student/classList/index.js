@@ -66,7 +66,6 @@ const style = {
 		color: 'white',
 		fontSize: 25,
 		textAlign: 'center',
-		fontWeight: 600,
 		fontWeight: "bold"
 	},
 	imgStyle: {
@@ -132,20 +131,8 @@ export default function ClassList() {
 	const getClassData = () => {
 		const classCollection = collection(db, "studentRecord", user.currentUser.uid, "classroom")
 		const q = query(classCollection, where('isDeleted', "==", false));
-		// const qTeacher = query(classCollection, where('ownerId', "==", user.currentUser.uid));
 		const unsubscribe = onSnapshot(q, (snapshot) => {
 			setClassroom(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-			// const classlist = snapshot.docs
-			// .map(doc => (
-			// 	{ ...doc.data(), id: doc.id }
-			// ))
-			// console.log(classlist)
-			// const test = {...classlist.map(item => item.students.filter(item => item.ownerId === user.currentUser.uid))}
-			// console.log(test)
-			// setClassroom(
-			// 	classlist.map(item => item.students.filter(student => student.ownerId === user.currentUser.uid))
-			// );
-			// setLoading(false);
 		}
 		)
 		return unsubscribe;

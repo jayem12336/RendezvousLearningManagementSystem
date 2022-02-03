@@ -4,7 +4,7 @@ import {
   auth,
   storage
 } from './firebase'
-import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { collection, addDoc, getDocs,getDoc, updateDoc, doc, arrayUnion,arrayRemove, setDoc, orderBy, query, where, deleteDoc, Timestamp} from "firebase/firestore"; 
 import {ref, uploadBytesResumable, getDownloadURL} from "firebase/storage";
 

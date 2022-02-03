@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {joinClass, getUser, getDocsByCollection} from '../../../../../utils/firebaseUtil';
+import React, { useState} from 'react';
+import {joinClass} from '../../../../../utils/firebaseUtil';
 import {
     Box,
     Button,
@@ -25,23 +25,12 @@ const style = {
 }
 
 export default function JoinClass({ isJoinClassOpen, toggleJoinClass, userId,student }) {
-    // const [userId, setUserId] = useState('');
+
     const [classCode, setClassCode] = useState('');
     const [error, setError] = useState('')
     const [open, setOpen] = useState(false)
-
-
-    // useEffect(() => {
-    //     getUser().then(user => {
-    //         if(user){
-    //             setUserId(user.uid)
-    //         } 
-    //     })
-    //   }, []);
-
     const hanldeJoinClass = () => {
         
-       
         if(classCode === ''){
             setError('Please input class code')
         }else {
@@ -79,7 +68,6 @@ export default function JoinClass({ isJoinClassOpen, toggleJoinClass, userId,stu
                 open={open}
                 onClose={handleClose}
                 message="I love snacks"
-                // key={vertical + horizontal}
             >
             <Alert onClose={handleClose} severity="success" sx={{ width: '100%', fontWeight: "bold" }}>
                 Request Sent

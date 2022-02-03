@@ -63,6 +63,9 @@ const style = {
       marginTop: 5,
       maxWidth: 1000
   },
+  inputText: {
+    fontWeight: 'bold'
+  },
 }
 
 export default function ClassQuiz() {
@@ -107,21 +110,9 @@ export default function ClassQuiz() {
       getStudentList()
     }
   }, [user]);
-  // useEffect(() => {
-  //   getStudentList()
-  // }, []);
 
   const getStudentList = () => {
-    // getDocsByCollection('users').then(data => {
-    //   const students = data.filter(item => item.isTeacher === false).map(item => {
-    //     let studentArr = []
-    //     studentArr = {label:item.displayName, value:item.ownerId}
-    //     return studentArr
-    //   })
-    //   const studentsRaw = data.filter(item => item.isTeacher === false)
-    //   setStudents(studentsRaw)
-    //   setStudentsList(students)
-    // })
+
     getStudentByAssigned(params.id).then(item => {
       const students = item.students.filter(item => item.isJoin === true).map(item => {
         let studentArr = []
@@ -141,22 +132,12 @@ export default function ClassQuiz() {
   const getQuiz = () => {
     getDocsByCollection('quiz')
       .then(item => {
-        // const data = item.filter(item => item.classCode === params.id)
         setQuizData(item)
       })
   }
 
   const quizAddQuestion = () => {
-    // let questions = {
-    //   question:'',
-    //   item: 0,
-    //   choiceOne:'',
-    //   choiceTwo:'',
-    //   choiceThree:'',
-    //   choiceFour:'',
-    //   answerKey:''
-    // }
-    // setAnswer([''])
+
     addQuestion.map(item => {
       setQuizQuestions(quizQuiestions => [...quizQuiestions, item])
       setAddQuestion([{
@@ -172,22 +153,7 @@ export default function ClassQuiz() {
         point: ""
       }])
     })
-    
-    // setAnswer([''])
-    // let questions = {
-    //   question: "",
-    //   questionType: "text",
-    //   questionPic: "",
-    //   answerSelectionType: "single",
-    //   answers: [''],
-    //   correctAnswer: "",
-    //   messageForCorrectAnswer: "Correct answer. Good job.",
-    //   messageForIncorrectAnswer: "Incorrect answer. Please try again.",
-    //   explanation: "",
-    //   point: ""
-    // }
-    // setQuizQuestions(quizQuiestions => [...quizQuiestions, questions])
-    
+      
   }
 
   const addAnswer = (item, index) => {
@@ -205,11 +171,6 @@ export default function ClassQuiz() {
     setAddQuestion(newAnswers)
   }
 
-  // const handleQuizChange = (e, index) => {
-  //   const questionList = [...quizQuiestions];
-  //   questionList[index][e.target.name] = e.target.value;
-  //   setQuizQuestions(questionList);
-  // }
   const handleQuizChange = (e, index) => {
     const questionList = [...addQuestion];
     questionList[index][e.target.name] = e.target.value;
@@ -262,7 +223,6 @@ export default function ClassQuiz() {
       target: { value },
     } = event;
     setStudentName(
-      // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
   };
@@ -298,7 +258,6 @@ export default function ClassQuiz() {
           <Grid xs={12} container direction='column'>
             {item.answers && item.answers.map((item,i) => (
               <Grid container alignItems="center">
-                {/* <Typography sx={{marginRight: 2}}>a.)</Typography> */}
                 <TextField 
                   label={`Answer ${index + 1}`} 
                   variant="outlined" 
@@ -306,7 +265,6 @@ export default function ClassQuiz() {
                   name='answer'
                   value={item}
                   disabled
-                  // onChange={(e) => onAnswerChange(e, i,item)}
                 />
               </Grid>
             ))
@@ -322,7 +280,6 @@ export default function ClassQuiz() {
               value={item.correctAnswer}
               onChange={(e) => handleQuizChange(e, index)}
             />
-            {/* <Typography sx={{ marginTop: 2 }}>{item.body}</Typography> */}
           </Grid>
           <Grid container alignItems="center">
             <TextField 
@@ -336,17 +293,6 @@ export default function ClassQuiz() {
               onChange={(e) => handleQuizChange(e, index)}
             />
           </Grid>
-        
-          {/* <Grid xs={12} justifyContent='flex-end' container>
-            <Button 
-              variant="contained" 
-              color="primary" 
-              sx={{ marginTop: 2 }}
-              onClick={(e) => handleQuizChange(e, index)}
-            >
-              Delete
-            </Button>
-          </Grid> */}
         </Grid>
       )}
       {addQuestion && addQuestion.map((item,index) => 
@@ -365,13 +311,11 @@ export default function ClassQuiz() {
           <Grid xs={12} container direction='column'>
             {item.answers && item.answers.map((item,i) => (
               <Grid container alignItems="center">
-                {/* <Typography sx={{marginRight: 2}}>a.)</Typography> */}
                 <TextField 
                   label={`Answer ${i + 1}`} 
                   variant="outlined" 
                   sx={{marginRight: 2, marginBottom: 2}}
                   name='answer'
-                  // value={item}
                   onChange={(e) => onAnswerChange(e, i,item)}
                 />
               </Grid>
@@ -400,22 +344,12 @@ export default function ClassQuiz() {
                   <MenuItem
                     key={name}
                     value={name}
-                    // style={getStyles(name, personName, theme)}
                   >
                     {name}
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
-          {/* <TextField 
-              label='Answer Key' 
-              variant="outlined" 
-              sx={{marginRight: 2, marginBottom: 2}}
-              name='correctAnswer'
-              value={item.answerKey}
-              onChange={(e) => handleQuizChange(e, index)}
-            /> */}
-            {/* <Typography sx={{ marginTop: 2 }}>{item.body}</Typography> */}
           </Grid>
           <Grid container alignItems="center">
             <TextField 
@@ -428,17 +362,6 @@ export default function ClassQuiz() {
               onChange={(e) => handleQuizChange(e, index)}
             />
           </Grid>
-        
-          {/* <Grid xs={12} justifyContent='flex-end' container>
-            <Button 
-              variant="contained" 
-              color="primary" 
-              sx={{ marginTop: 2 }}
-              onClick={(e) => handleQuizChange(e, index)}
-            >
-              Delete
-            </Button>
-          </Grid> */}
         </Grid>
       )}
     </>
@@ -459,6 +382,7 @@ export default function ClassQuiz() {
                 sx={{ marginRight: 2, marginBottom: 2 }}
                 value={quizTitle}
                 onChange={(e) => setQuizTitle(e.target.value)}
+                
               />
               <FormControl fullWidth sx={{ marginBottom: 2 }}>
                 <InputLabel id="select-student-label">Assign Student</InputLabel>
@@ -474,7 +398,6 @@ export default function ClassQuiz() {
                       key={name.value}
                       value={name.value}
                       name={name.value}
-                    // style={getStyles(name, personName, theme)}
                     >
                       {name.label}
                     </MenuItem>
@@ -494,45 +417,10 @@ export default function ClassQuiz() {
               variant="filled"
               multiline
               placeholder="Please enter direction"
-              // value={announcementContent}
-              // onChange={handleAnnoucement}
               fullWidth
               minRows={5}
             />
             <Box sx={{ marginTop: 2 }} container component={Grid} justifyContent="space-between">
-
-              {/*  <Grid item>
-                <IconButton sx={style.iconStyle}>
-                  <AddToDriveIcon />
-                </IconButton>
-                <IconButton sx={style.iconStyle}>
-                  <FileUploadIcon />
-                </IconButton>
-                <IconButton sx={style.iconStyle}>
-                  <InsertLinkIcon />
-                </IconButton>
-                <IconButton sx={style.iconStyle}>
-                  <YouTubeIcon />
-                </IconButton>
-              </Grid>
-             */}
-
-              {/* <Grid item sx={{ marginTop: 0.5 }}>
-                  <Button 
-                    style={style.btnStyle} 
-                    // onClick={cancelAnnouncement}
-                  > 
-                    cancel
-                  </Button>
-                  <Button 
-                    variant="contained" 
-                    // disabled={announcementContent ? false : true} 
-                    style={style.btnStyle}
-                    // onClick={saveAnnoucement}
-                  > 
-                    Save
-                  </Button>
-                </Grid> */}
             </Box>
           </Grid>
         </Grid>
@@ -550,16 +438,6 @@ export default function ClassQuiz() {
         {quizData && quizBody()}
 
         <Grid container sx={style.addBtncontainer} justifyContent='space-between'>
-          {/* <Box sx={{display:'flex', alignItems:'center'}}>
-          <TextField
-            variant="outlined"
-            placeholder="quiz duration"
-            type="number"
-            value={duration}
-            onChange={handleDuration}
-          />
-          <Typography sx={{ marginLeft: 2 }}>minutes</Typography> 
-          </Box> */}
           <Box sx={{display:'flex', alignItems:'center'}}>
             <Button 
               variant="contained" 

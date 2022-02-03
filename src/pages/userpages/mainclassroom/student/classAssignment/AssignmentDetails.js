@@ -4,16 +4,9 @@ import {
   Box,
   Grid,
   Button,
-  MenuItem,
   TextField,
-  OutlinedInput,
-  FormControl,
-  InputLabel,
-  Select,
   Alert,
   Snackbar,
-  Stack,
-  Chip,
   Typography,
   Link,
   IconButton
@@ -27,7 +20,7 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 
 
-import { getDocsByCollection, updateAssignment, saveAssignmentStudent, getStudentByAssigned, saveAssignmentRecord, uploadFile } from '../../../../../utils/firebaseUtil'
+import { getDocsByCollection, getStudentByAssigned, saveAssignmentRecord, uploadFile } from '../../../../../utils/firebaseUtil'
 import { Timestamp } from 'firebase/firestore';
 
 import { useParams } from 'react-router';
