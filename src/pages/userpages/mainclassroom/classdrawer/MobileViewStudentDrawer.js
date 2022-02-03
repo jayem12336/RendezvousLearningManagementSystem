@@ -175,7 +175,7 @@ export default function MobileViewStudentDrawer({ props }) {
                         <ListItem
                             button
                             component={ReactLink}
-                            to={`/studentclassroom/${props}`}
+                            to={'/studentclassroom'}
                         >
                             <ListItemIcon>
                                 <ExitToAppIcon sx={style.icons} />

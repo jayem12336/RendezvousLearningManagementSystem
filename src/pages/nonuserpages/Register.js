@@ -564,8 +564,8 @@ export default function Register() {
                                     <Grid item xs={12} spacing={3}>
                                         <Input
                                             label='Phone number'
-                                            type='tel'
-                                            patern='^(09|\+639)\d{9}$'
+                                            type='number'
+                                            pattern={'[0-9]{16}'}
                                             onChange={e => handleChange(e)}
                                             onKeyDown={(e) => e.key === 'Enter' && signup()}
                                             value={values.phone}
@@ -635,7 +635,6 @@ export default function Register() {
                                         </Button> */}
                                         <LoadingButton
                                             loading={loading}
-                                            loadingIndicator="Loading..."
                                             variant="contained"
                                             color='primary'
                                             onClick={signup}
