@@ -4,9 +4,22 @@ import {
   Typography,
   Box,
   Grid,
+  Avatar,
   TextField,
   Button,
+  IconButton,
+  FormControl,
+  InputLabel,
+  Select,
+  OutlinedInput,
+  Chip,
+  MenuItem,
 } from '@mui/material';
+import DateAdapter from '@mui/lab/AdapterMoment';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
+
+
 
 import Studentdrawer from '../../classdrawer/ClassDrawerStudent';
 import { Timestamp } from 'firebase/firestore';
@@ -15,13 +28,19 @@ import { getStudentByAssigned, getDocsByCollection, saveQuizStudent, saveQuizRec
 import { useParams } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { useHistory } from 'react-router';
+import { v4 as uuidv4 } from 'uuid';
+
+import AddToDriveIcon from '@mui/icons-material/AddToDrive';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
+import InsertLinkIcon from '@mui/icons-material/InsertLink';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+
 import Quiz from 'react-quiz-component';
 
 
 const style = {
   gridcontainer: {
     display: "flex",
-    fontWeight: "bold",
     boxShadow: '0 3px 5px 2px rgb(126 126 126 / 30%)',
     marginTop: 5,
     padding: 2,
@@ -61,10 +80,19 @@ const style = {
 
 
 export default function QuizDetail() {
+  const setQuizResult = (obj) => {
+    console.log(obj);
+    //
+  }
+
+  // console.log(test.numberOfCorrectAnswers)
 
   const [quizData, setQuizData] = useState([])
+  const [userId, setUserId] = useState('');
+  // const [quizQuiestions, setQuizQuestions] = useState([])
   const [studentsList, setStudentsList] = useState([])
   const [studentName, setStudentName] = useState([])
+  const [students, setStudents] = useState([])
   const [duration, setDuration] = useState('')
   const [dueDate, setDueDate] = useState('')
   const [subject, setSubject] = useState('')
@@ -78,6 +106,7 @@ export default function QuizDetail() {
   const params = useParams()
   const { user } = useSelector((state) => state);
   const history = useHistory();
+  const id = (uuidv4().slice(-8));
 
 
   useEffect(() => {
@@ -113,9 +142,10 @@ export default function QuizDetail() {
             {item.answers.map((answer, i) =>
               <Grid container xs={12} style={{ marginTop: 8 }}>
                 <Button
-                  variant={answer === data.userInput[index] ? 'contained' : 'outlined'}
-                  color={data.userInput[index] === item.correctAnswer ? 'success' : 'error'}
+                  variant={answer == data.userInput[index] ? 'contained' : 'outlined'}
+                  color={data.userInput[index] == item.correctAnswer ? 'success' : 'error'}
                   disbaled
+                  sx={{ fontWeight: "bold" }}
                 >
                   {answer}
                 </Button>
@@ -138,7 +168,6 @@ export default function QuizDetail() {
             variant="contained"
             // disabled={announcementContent ? false : true} 
             style={style.btnStyleFooter}
-
             onClick={() => history.push(`/studentclassroomdetail/${params.id}`)}
           >
             Go To Class Dashboard
@@ -198,6 +227,34 @@ export default function QuizDetail() {
     })
   }
 
+  const getQuiz = () => {
+    getDocsByCollection('quiz')
+      .then(item => {
+        // const data = item.filter(item => item.classCode === params.id)
+        setQuizData(item)
+      })
+  }
+
+  // const addQuestion = () => {
+  //   let questions = {
+  //     question:'',
+  //     item: 0,
+  //     choiceOne:'',
+  //     choiceTwo:'',
+  //     choiceThree:'',
+  //     choiceFour:'',
+  //     answerKey:''
+  //   }
+
+  //   setQuizQuestions(quizQuiestions => [...quizQuiestions, questions])
+  // }
+
+  // const handleQuizChange = (e, index) => {
+  //   const questionList = [...quizQuiestions];
+  //   questionList[index][e.target.name] = e.target.value;
+  //   setQuizQuestions(questionList);
+  // }
+
   const saveQuiz = (result) => {
     const studentData = {
       ownerId: user.currentUser.uid,
@@ -215,13 +272,126 @@ export default function QuizDetail() {
     }
     saveQuizStudent(studentData)
     saveQuizRecord(studentData)
+    // const timeout = setTimeout(() => {
+    //   // history.push(`/classroomdetail/${params.id}`)
+    //   console.log(studentData)
+    // }, 2000)
+    // return () => clearTimeout(timeout)
   }
 
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setStudentName(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
+
+  const setDate = (e) => {
+    setDueDate(e)
+  }
+
+  const handleDuration = (e) => {
+    setDuration(e.target.value)
+  }
+
+  // const quizBody = () => {
+  //   return quizQuiestions && quizQuiestions.map((item,index) => 
+  //     <Grid container sx={style.gridcontainer} justifyContent='space-between'>
+  //       <Grid xs={12} item>
+  //         <TextField 
+  //           label='Question' 
+  //           variant="outlined" 
+  //           fullWidth
+  //           sx={{marginRight: 2, marginBottom: 2}}
+  //           name='question'
+  //           value={item.question}
+  //           onChange={(e) => handleQuizChange(e, index)}
+  //         />
+  //       </Grid>
+  //       <Grid xs={12} container direction='column'>
+  //         <Grid container alignItems="center">
+  //           <Typography sx={{marginRight: 2}}>a.)</Typography>
+  //           <TextField 
+  //             label='Choice 1' 
+  //             variant="outlined" 
+  //             sx={{marginRight: 2, marginBottom: 2}}
+  //             name='choiceOne'
+  //             value={item.choiceOne}
+  //             onChange={(e) => handleQuizChange(e, index)}
+  //           />
+  //         </Grid>
+  //         <Grid container alignItems="center">
+  //           <Typography sx={{marginRight: 2}}>b.)</Typography>
+  //           <TextField 
+  //             label='Choice 2' 
+  //             variant="outlined" 
+  //             sx={{marginRight: 2, marginBottom: 2}}
+  //             name='choiceTwo'
+  //             value={item.choiceTwo}
+  //             onChange={(e) => handleQuizChange(e, index)}
+  //           />
+  //         </Grid>
+  //         <Grid container alignItems="center">
+  //           <Typography sx={{marginRight: 2}}>c.)</Typography>
+  //           <TextField 
+  //             label='Choice 3' 
+  //             variant="outlined" 
+  //             sx={{marginRight: 2, marginBottom: 2}}
+  //             name='choiceThree'
+  //             value={item.choiceThree}
+  //             onChange={(e) => handleQuizChange(e, index)}
+  //           />
+  //         </Grid>
+  //         <Grid container alignItems="center">
+  //           <Typography sx={{marginRight: 2}}>d.)</Typography>
+  //           <TextField 
+  //             label='Choice 4' 
+  //             variant="outlined" 
+  //             sx={{marginRight: 2, marginBottom: 2}}
+  //             name='choiceFour'
+  //             value={item.choiceFour}
+  //             onChange={(e) => handleQuizChange(e, index)}
+  //           />
+  //         </Grid>          
+
+  //         {/* <Typography>{item.ownerName}</Typography> */}
+  //       </Grid>
+  //       <Grid item xs={12}>
+  //       <TextField 
+  //           label='Answer' 
+  //           variant="outlined" 
+  //           sx={{marginRight: 2, marginBottom: 2}}
+  //           name='answerKey'
+  //           value={item.answerKey}
+  //           onChange={(e) => handleQuizChange(e, index)}
+  //         />
+  //         {/* <Typography sx={{ marginTop: 2 }}>{item.body}</Typography> */}
+  //       </Grid>
+
+  //       {/* <Grid xs={12} justifyContent='flex-end' container>
+  //         <Button 
+  //           variant="contained" 
+  //           color="primary" 
+  //           sx={{ marginTop: 2 }}
+  //           onClick={(e) => handleQuizChange(e, index)}
+  //         >
+  //           Delete
+  //         </Button>
+  //       </Grid> */}
+  //     </Grid>
+  //   )
+  // }
+
+  console.log(quizQuiestions)
 
   return (
     <Studentdrawer headTitle={quizTitle} classCode={params.id}>
       <Box component={Grid} container justifyContent="center" sx={{ paddingTop: 5 }}>
         <Grid container sx={style.gridcontainer} justifyContent='space-between'>
+
           <Grid container>
             <Grid container>
               <TextField
@@ -238,7 +408,36 @@ export default function QuizDetail() {
                   sx: style.inputText
                 }}
               />
-       
+              {/* <FormControl sx={{ width: 500 }}>
+                  <InputLabel id="select-student-label">Assign Student</InputLabel>
+                  <Select
+                    labelId="select-student-label"
+                    multiple
+                    value={studentName}
+                    onChange={handleChange}
+                    input={<OutlinedInput id="select-multiple-chip" label="Assign Student" />}
+                  >
+                    {studentsList.map((name) => (
+                      <MenuItem
+                        key={name.value}
+                        value={name.value}
+                        name={name.value}
+                        // style={getStyles(name, personName, theme)}
+                      >
+                        {name.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl> */}
+              {/* <LocalizationProvider dateAdapter={DateAdapter}>
+                  <DatePicker
+                    label="Due Date"
+                    value={dueDate}
+                    disabled
+                    onChange={(newValue) => setDate(newValue)}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </LocalizationProvider> */}
               <TextField
                 variant="filled"
                 disabled
@@ -249,6 +448,8 @@ export default function QuizDetail() {
                 InputLabelProps={{
                   sx: style.inputText
                 }}
+              // value={announcementContent}
+              // onChange={handleAnnoucement}
 
               />
             </Grid>
@@ -257,6 +458,7 @@ export default function QuizDetail() {
               multiline
               placeholder="Please enter direction"
               value={instruction}
+              // onChange={handleAnnoucement}
               fullWidth
               disabled
               minRows={5}
@@ -268,10 +470,42 @@ export default function QuizDetail() {
               }}
             />
             <Box sx={{ marginTop: 2 }} container component={Grid} justifyContent="space-between">
+              {/* <Grid item>
+                  <IconButton sx={style.iconStyle}>
+                    <AddToDriveIcon />
+                  </IconButton>
+                  <IconButton sx={style.iconStyle}>
+                    <FileUploadIcon />
+                  </IconButton>
+                  <IconButton sx={style.iconStyle}>
+                    <InsertLinkIcon />
+                  </IconButton>
+                  <IconButton sx={style.iconStyle}>
+                    <YouTubeIcon />
+                  </IconButton>
+                </Grid> */}
+              {/* <Grid item sx={{ marginTop: 0.5 }}>
+                  <Button 
+                    style={style.btnStyle} 
+                    // onClick={cancelAnnouncement}
+                  > 
+                    cancel
+                  </Button>
+                  <Button 
+                    variant="contained" 
+                    // disabled={announcementContent ? false : true} 
+                    style={style.btnStyle}
+                    // onClick={saveAnnoucement}
+                  > 
+                    Save
+                  </Button>
+                </Grid> */}
             </Box>
           </Grid>
         </Grid>
-        <Grid container sx={style.gridcontainer} justifyContent='space-between' >
+        {/* {quizData && quizBody() } */}
+
+        <Grid container sx={style.gridcontainer} justifyContent='space-between'>
           {result.length !== 0 ?
             renderCustomResultPage()
             :
@@ -279,11 +513,14 @@ export default function QuizDetail() {
             <Quiz
               quiz={quizQuiestions}
               showDefaultResult={false}
+              // onComplete={setQuizResult}
               customResultPage={renderCustomResultPage}
-
             />
           }
         </Grid>
+
+
+
       </Box>
     </Studentdrawer>
   )

@@ -52,6 +52,7 @@ const style = {
 export default function ClassQuizList() {
 
   const [showInput, setShowInput] = useState(false);
+  // const [inputValue, setInputValue] = useState('');
   const [announcementData, setAnnouncementData] = useState();
   const [userId, setUserId] = useState('');
   const [className, setClassName] = useState('')
@@ -93,6 +94,7 @@ export default function ClassQuizList() {
   const getDataAnnouncement = () => {
     getAnnouncement('announcement', 'created')
     .then(item => {
+      // const data = item.filter(item => item.classCode === params.id)
       setAnnouncementData(item)
     })
   }
@@ -100,6 +102,7 @@ export default function ClassQuizList() {
   const getDataQuiz = () => {
     getDocsByCollection('quiz')
     .then(item => {
+      // const data = item.filter(item => item.classCode === params.id)
       setClassQuizList(item)
     })
   }  
@@ -145,6 +148,7 @@ export default function ClassQuizList() {
             variant="contained" 
             color="primary" 
             sx={{ marginTop: 2 }}
+            // onClick={() => history.push(`/quiz/${item.classCode}`)}
           >
             View
           </Button>
@@ -158,6 +162,59 @@ export default function ClassQuizList() {
   return (
     <Teacherdrawer headTitle='All Quiz' classCode={params.id}>
       <Box component={Grid} container justifyContent="center" sx={{ paddingTop: 5 }}>
+        {/* <Grid container sx={style.gridcontainer}>
+          {showInput ? (
+            <Grid container>
+              <TextField
+                variant="filled"
+                multiline
+                value={announcementContent}
+                onChange={handleAnnoucement}
+                fullWidth
+                minRows={5}
+              />
+              <Box sx={{ marginTop: 2 }} container component={Grid} justifyContent="space-between">
+                <Grid item>
+                  <IconButton sx={style.iconStyle}>
+                    <AddToDriveIcon />
+                  </IconButton>
+                  <IconButton sx={style.iconStyle}>
+                    <FileUploadIcon />
+                  </IconButton>
+                  <IconButton sx={style.iconStyle}>
+                    <InsertLinkIcon />
+                  </IconButton>
+                  <IconButton sx={style.iconStyle}>
+                    <YouTubeIcon />
+                  </IconButton>
+                </Grid>
+                <Grid item sx={{ marginTop: 0.5 }}>
+                  <Button 
+                    style={style.btnStyle} 
+                    onClick={cancelAnnouncement}
+                  > 
+                    cancel
+                  </Button>
+                  <Button 
+                    variant="contained" 
+                    disabled={announcementContent ? false : true} 
+                    style={style.btnStyle}
+                    onClick={saveAnnoucement}
+                  > 
+                    Post
+                  </Button>
+                </Grid>
+              </Box>
+            </Grid>
+          ) : (
+            <Grid container sx={style.main}
+              onClick={() => setShowInput(true)}
+            >
+              <Avatar />
+              <Typography style={{ paddingLeft: 20 }}>Announce Something To Class</Typography>
+            </Grid>
+          )}
+        </Grid> */}
         {announcementData && announcementBody() }
       </Box>
     </Teacherdrawer>
