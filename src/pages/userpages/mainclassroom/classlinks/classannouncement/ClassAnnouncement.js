@@ -157,7 +157,6 @@ export default function ClassAnnouncement() {
   const getDataAnnouncement = () => {
     getAnnouncement('announcement', 'created')
       .then(item => {
-        console.log(item)
         const data = item.filter(item => item.classCode === params.id)
         // setAnnouncementData(data)
 
@@ -170,7 +169,6 @@ export default function ClassAnnouncement() {
           // setAnnouncementData(newData)
           return newData
         })
-        console.log(announceData)
         setAnnouncementData(announceData)
         // const data = item.filter(item => item.classCode === params.id)
         // setAnnouncementData(data)

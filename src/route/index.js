@@ -97,14 +97,6 @@ export default function RouterComponent() {
             
     }, [user])
 
-    // console.log(user);
-
-    console.log(classUser.classData)
-    console.log('asdasd',user.currentUser)
-    console.log('oijoiu',isTeacher)
-    console.log(window.sessionStorage.getItem('user') === 'false')
-    // console.log(sessionStorage.getItem("session"))
-
     const THEME = createTheme(theme);
 
     const PublicRoute = ({component: Component, restricted, ...rest}) => {

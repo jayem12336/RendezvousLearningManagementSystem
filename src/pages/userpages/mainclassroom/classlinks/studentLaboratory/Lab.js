@@ -174,7 +174,6 @@ export default function Laboratory() {
   const getLaboratory = () => {
     getDocsByCollection('laboratory').then(item => {
       const data = item.filter(item => item.classCode === params.id)
-      console.log(data)
       if(data.length !== 0){
         data.map(item => {
           setHtml(item.html)
@@ -205,7 +204,6 @@ export default function Laboratory() {
     if(isNew){
       createDoc('laboratory', data).then(() => {
         setOpen({ open: true});
-        console.log('success')
         const timeout = setTimeout(() => {
           history.push(`/studentclassroom`)
         }, 2000)
@@ -214,7 +212,6 @@ export default function Laboratory() {
       })
     }else {
       createDoc('laboratory', data).then(() => {
-        console.log('success update')
         setOpen({ open: true});
         const timeout = setTimeout(() => {
           history.push(`/studentclassroom`)
@@ -242,7 +239,6 @@ export default function Laboratory() {
     setOpen(false);
   };
 
-  console.log(isNew)
   return (
     <Classdrawer>     
       <Snackbar
@@ -278,36 +274,6 @@ export default function Laboratory() {
             </Button>
           </Grid>
             
-            {/* <FormControl sx={{ width: 500 , marginBottom: 2}}>
-                  <InputLabel id="select-student-label">Assign Student</InputLabel>
-                  <Select
-                    labelId="select-student-label"
-                    multiple
-                    value={studentName}
-                    onChange={handleChange}
-                    input={<OutlinedInput id="select-multiple-chip" label="Assign Student" />}
-                    // renderValue={(selected, item) => (
-                    //   console.log(selected),
-                    //   <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                    //     {selected.map((value) => (
-                    //       <Chip key={value} label={value}  />
-                    //     ))}
-                    //   </Box>
-                    // )}
-                    // MenuProps={MenuProps}
-                  >
-                    {studentsList.map((name) => (
-                      <MenuItem
-                        key={name.value}
-                        value={name.value}
-                        name={name.value}
-                        // style={getStyles(name, personName, theme)}
-                      >
-                        {name.label}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl> */}
           </Grid>
           <Box sx={style.pane, style.topPane}>
             <Editor

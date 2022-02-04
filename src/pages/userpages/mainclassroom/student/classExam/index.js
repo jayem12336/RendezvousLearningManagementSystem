@@ -144,7 +144,6 @@ export default function ClassQuiz() {
       dueDate: Timestamp.fromDate(new Date(dueDate)),
       subject: subject
     }
-    console.log(data)
     createDoc('quiz',data).then(() => {
       history.push(`/quiz`)
     })

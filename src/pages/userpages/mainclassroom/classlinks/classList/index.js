@@ -194,8 +194,6 @@ export default function ClassList() {
         return unsubscribe;
     }
 
-    console.log(isTeacher)
-
     const classroomBody = () => {
         return (
             <Box component={Grid} container justifyContent="center">
@@ -223,8 +221,6 @@ export default function ClassList() {
             </Box>
         )
     }
-
-    console.log(user)
 
     return (
         <Classdrawer headTitle='Classroom'>

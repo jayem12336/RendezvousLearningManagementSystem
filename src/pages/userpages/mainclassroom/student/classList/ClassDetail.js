@@ -29,7 +29,7 @@ const style = {
     display: "flex",
     marginTop: 5,
     padding: 2,
-    maxWidth: 900,
+    maxWidth: 1100,
     borderBottom: 0.5,
     borderColor: (theme) => theme.palette.primary.main
   },
@@ -37,7 +37,14 @@ const style = {
     display: "flex",
     marginTop: 5,
     padding: 2,
-    maxWidth: 900
+    maxWidth: 1100
+  },
+  gridcontainerClass2: {
+    display: "flex",
+    // boxShadow: '0 3px 5px 2px rgb(126 126 126 / 30%)',
+    marginTop: 1,
+    padding: 2,
+    maxWidth: 1100
   },
   gridcontainerCard: {
     display: "flex",
@@ -198,7 +205,7 @@ export default function ClassListDetail() {
   }
 
   const getQuizList = () => {
-    const labCollection = collection(db, "quiz")
+    const labCollection = collection(db, "createclass", params.id, "students", user.currentUser.uid, "quiz")
     const qTeacher = query(labCollection, where('classCode', "==", params.id));
     const unsubscribe = onSnapshot(qTeacher, (snapshot) => {
       setQuizList(
@@ -210,7 +217,7 @@ export default function ClassListDetail() {
   }
 
   const getExamList = () => {
-    const labCollection = collection(db, "exam")
+    const labCollection = collection(db, "createclass", params.id, "students", user.currentUser.uid, "exam")
     const qTeacher = query(labCollection, where('classCode', "==", params.id));
     const unsubscribe = onSnapshot(qTeacher, (snapshot) => {
       setExamList(
@@ -222,7 +229,7 @@ export default function ClassListDetail() {
   }
 
   const getAssignmentList = () => {
-    const assignCollection = collection(db, "assignment")
+    const assignCollection = collection(db, "createclass", params.id, "students", user.currentUser.uid, "assignment")
     const qTeacher = query(assignCollection, where('classCode', "==", params.id));
     const unsubscribe = onSnapshot(qTeacher, (snapshot) => {
       setAssignmentList(
@@ -311,9 +318,8 @@ export default function ClassListDetail() {
     return (
       classroom && classroom.map(item =>
         <>
-
           <Box component={Grid} container justifyContent="center" >
-            <Box sx={{ maxWidth: 900 }}>
+            <Grid container sx={style.gridcontainerClass2}>
               <Grid container sx={style.gridcontainerClass} style={{ padding: 0 }}>
                 <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Assignment List</Typography>
               </Grid>
@@ -321,7 +327,6 @@ export default function ClassListDetail() {
                 <Grid container sx={style.gridcontainerCard} onClick={() => reDirectAssignment(item.classCode, item.assignmentId, item.created, item.dueDate)}>
                   <Grid xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }} container>
                     <Typography variant="h5" sx={style.linkStyle} onClick={() => null}>Assignment name : {item.title}</Typography>
-                    <Typography variant="p" sx={style.linkStyle} onClick={() => null}>Score : {item.score ? item.score : 0}</Typography>
                   </Grid>
                   <Grid container xs={12} direction='column'>
                     <Typography sx={{ fontWeight: 'bold' }}>created: {new Date(item.created.seconds * 1000).toLocaleDateString()} {new Date(item.created.seconds * 1000).toLocaleTimeString()}</Typography>
@@ -337,10 +342,9 @@ export default function ClassListDetail() {
                   </Grid>
                 </Grid>
               }
-              <Grid container sx={style.gridcontainerClass}>
+              <Grid container sx={style.gridcontainerClass} style={{ padding: 0 }}>
                 <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Laboratory List</Typography>
               </Grid>
-
               {labList.length !== 0 ? labList.map(item =>
                 <Grid container sx={style.gridcontainerCard} onClick={() => reDirectLab(item.classCode, item.labId, item.startDate, item.dueDate)}>
                   <Grid xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }} container>
@@ -424,10 +428,8 @@ export default function ClassListDetail() {
                   </Grid>
                 </Grid>
               }
-
-            </Box>
-          </Box>
-
+            </Grid>
+          </Box >
         </>
       )
     )

@@ -76,7 +76,6 @@ const style = {
 
 export default function QuizDetail() {
   const setQuizResult = (obj) => {
-    console.log(obj);
     //
   }
 
@@ -189,10 +188,8 @@ export default function QuizDetail() {
       quizId: params.quizId,
       instruction: instruction,
       startDate: Timestamp.fromDate(new Date(startDate))
-
     }
     createClassDoc('quiz', params.quizId, data).then(() => {
-      console.log('success')
     })
     studentName.map(student => {
       const studentData = {
@@ -256,9 +253,6 @@ export default function QuizDetail() {
   }
 
   const handleEditAnswerChange = (e, index) => {
-    console.log(e.target.value)
-    console.log(e.target.name)
-    console.log(index)
     const questionList = [...quizQuiestions];
     questionList.map(item => {
       item.answers[index] = e.target.value
@@ -556,13 +550,6 @@ export default function QuizDetail() {
       )}
     </>
   )
-
-  console.log(quizQuiestions)
-  console.log(addQuestion)
-  console.log('duedate', Timestamp.fromDate(new Date(dueDate)))
-  console.log('time', Timestamp.now())
-  console.log('start', isStart)
-  console.log('end', isEnd)
 
   return (
     <Teacherdrawer headTitle={title} classCode={params.id} loading={loading}>

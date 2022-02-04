@@ -150,7 +150,7 @@ export default function Files() {
                         <Box component={Grid} container justifyContent="center" sx={{ marginBottom: 2 }}>
                             <Typography variant="h4"> Files </Typography>
                         </Box>
-                        <TableContainer component={Paper} justifyContent="center" sx={{marginTop: 10}}>
+                        <TableContainer component={Paper} justifyContent="center" sx={{marginTop: 2}}>
                             <Table aria-label="customized table">
                                 <TableHead>
                                     <TableRow>

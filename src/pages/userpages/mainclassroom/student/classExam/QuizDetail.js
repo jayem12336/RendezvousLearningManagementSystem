@@ -59,11 +59,8 @@ const style = {
 
 export default function QuizDetail() {
   const setQuizResult = (obj) => {
-    console.log(obj);
     //
   }
-
-  // console.log(test.numberOfCorrectAnswers)
 
   const [quizData, setQuizData] = useState([])
   const [userId, setUserId] = useState('');
@@ -72,6 +69,7 @@ export default function QuizDetail() {
   const [studentName, setStudentName] = useState([])
   const [students, setStudents] = useState([])
   const [duration, setDuration] = useState('')
+  const [startDate, setStartDate] = useState('')
   const [dueDate, setDueDate] = useState('')
   const [subject, setSubject] = useState('')
   const [quizTitle, setQuizTitle] = useState('')
@@ -197,7 +195,8 @@ export default function QuizDetail() {
       })
       // setQuizQuestions(item.questions)
       setQuizTitle(item.title)
-      setDueDate(new Date(item.dueDate.seconds * 1000).toLocaleDateString())
+      setDueDate(new Date(item.dueDate.seconds * 1000).toLocaleString())
+      setStartDate(new Date(item.startDate.seconds * 1000).toLocaleString())
       setInstruction(item.instruction)
       setIsDone(item.isDone)
       setResult(item.result ? item.result : [])
@@ -242,7 +241,8 @@ export default function QuizDetail() {
       questions: [...quizQuiestions.questions],
       duration: duration,
       created: Timestamp.now(),
-      dueDate: Timestamp.fromDate(new Date(dueDate)),
+      dueDate: new Date(dueDate),
+      startDate: new Date(startDate),
       subject: subject,
       examId: params.examId,
       studentId: user.currentUser.uid,
@@ -250,11 +250,6 @@ export default function QuizDetail() {
     }
     saveExamStudent(studentData)
     saveExamRecord(studentData)
-    // const timeout = setTimeout(() => {
-    //   // history.push(`/classroomdetail/${params.id}`)
-    //   console.log(studentData)
-    // }, 2000)
-    // return () => clearTimeout(timeout)
   }
 
   const handleChange = (event) => {
@@ -274,8 +269,6 @@ export default function QuizDetail() {
   const handleDuration = (e) => {
     setDuration(e.target.value)
   }
-
-  console.log(quizQuiestions)
 
   return (
     <Studentdrawer headTitle={quizTitle} classCode={params.id}>

@@ -205,7 +205,6 @@ export default function Assignment() {
   const getLaboratory = () => {
     getDocsByCollection('laboratory').then(item => {
       const data = item.filter(item => item.classCode === params.id)
-      console.log(data)
       if (data.length !== 0) {
         data.map(item => {
           setAssignmentTitle(item.title)
@@ -270,10 +269,8 @@ export default function Assignment() {
           saveAssignmentStudent(studentData)
           const file = acceptedFiles.map(file => Object.assign(file))
           uploadFile(file, params.id, params.assignmentId, user.currentUser.uid, '', 'assignment').then(data => {
-            console.log(data)
           })
         })
-        console.log('success')
         const timeout = setTimeout(() => {
           history.push(`/classroomdetail/${params.id}`)
         }, 2000)
@@ -311,8 +308,6 @@ export default function Assignment() {
     setInstruction(e.target.value)
   }
 
-  console.log(studentName)
-  console.log(studentsList)
   return (
     <Teacherdrawer classCode={params.id} headTitle={'Create Assignment'}>
       <Helmet>
@@ -386,15 +381,6 @@ export default function Assignment() {
                 value={studentName}
                 onChange={handleChange}
                 input={<OutlinedInput id="select-multiple-chip" label="Assign Student" />}
-              // renderValue={(selected, item) => (
-              //   console.log(selected),
-              //   <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              //     {selected.map((value) => (
-              //       <Chip key={value} label={value}  />
-              //     ))}
-              //   </Box>
-              // )}
-              // MenuProps={MenuProps}
               >
                 {studentsList.map((name, index) => (
                   <MenuItem
@@ -432,25 +418,6 @@ export default function Assignment() {
                 <Box sx={{ marginTop: 2 }} container component={Grid} justifyContent="space-between">
                   <Grid container justifyContent='space-between'>
                     <Grid container xs={12}>
-                      {/* <Dropzone onDrop={files => console.log(files)}>
-                        {({getRootProps, getInputProps}) => (
-                          <div className="container">
-                            <div
-                              {...getRootProps({
-                                className: 'dropzone',
-                                onDrop: event => event.stopPropagation()
-                              })}
-                            >
-                              <input {...getInputProps()} />
-                              <div>Drag 'n' drop some files here, or click to select files
-                                <IconButton sx={style.iconStyle}>
-                                  <FileUploadIcon />
-                                </IconButton>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                      </Dropzone> */}
                       <section className="container" style={{display:'flex', justifyContent: 'space-between', width:'100%'}}>
                         <div {...getRootProps({ className: 'dropzone' })}>
                           <input {...getInputProps()} />

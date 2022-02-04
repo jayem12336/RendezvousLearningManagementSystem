@@ -107,10 +107,8 @@ export default function ClassJoinMeet() {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
             setMeetingLink(docSnap.data().meetingLink)
-            console.log("Document data:", docSnap.data());
         } else {
             // doc.data() will be undefined in this case
-            console.log("No such document!");
         }
     }
 

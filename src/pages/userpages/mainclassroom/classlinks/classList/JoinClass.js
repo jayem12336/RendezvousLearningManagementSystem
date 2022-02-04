@@ -53,8 +53,6 @@ export default function JoinClass({ isJoinClassOpen, toggleJoinClass, handleOpen
         
     }
 
-      console.log(userId)
-
     return (
         <div>
             <Dialog

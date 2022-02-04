@@ -160,7 +160,6 @@ export default function Laboratory() {
     getLabStudent(params.id, user.currentUser.uid, params.labId).then(item => {
       // const data = item
       if (item.length !== 0) {
-        // console.log(data)
         setHtml(item.html)
         setCss(item.css)
         setJs(item.js)
@@ -226,9 +225,6 @@ export default function Laboratory() {
     setInstruction(e.target.value)
   }
 
-  console.log(studentName)
-  console.log(studentsList)
-  console.log(labId)
   return (
     <Studentdrawer classCode={params.id} headTitle={title}>
       <Snackbar

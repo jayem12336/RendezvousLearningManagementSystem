@@ -170,10 +170,6 @@ export default function ClassList() {
 		)
 	}
 
-	console.log(user)
-	console.log(classroom)
-	console.log(student)
-
 	return (
 		<Classdrawer headTitle='Classroom'>
 			<Helmet>

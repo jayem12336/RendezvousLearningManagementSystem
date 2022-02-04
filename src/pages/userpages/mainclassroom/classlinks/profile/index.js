@@ -156,7 +156,6 @@ export default function ClassAnnouncementList() {
           phone: item[0].phone
         })
         setImgUrl(item[0].photoUrl)
-        console.log(item)
       })
     }
   }, [user]);
@@ -171,12 +170,6 @@ export default function ClassAnnouncementList() {
   const onSave = () => {
     setSuccess('')
     setError('')
-    // if(/^(09|\+639)\d{9}$/.test(values.phone) === false && /^[0-9]{8}$/.test(values.phone) === false) {
-    //   setSuccess('')
-    //   setError('invalid phone')
-    // }else{
-    //   console.log('succeess')
-    // }
 
     if (values.newPassword !== '' && values.newPassword !== values.confirmPassword) {
       setSuccess('')
@@ -222,26 +215,17 @@ export default function ClassAnnouncementList() {
 
   const onFileChange = (e) => {
     const file = e.target.files[0]
-    console.log(file)
     uploadImage(file).then(data => {
       getDownloadURL(data.ref).then(url => {
-        console.log(url)
         setValues({
           ...values,
           photoUrl: url
         })
         setImgUrl(url)
       })
-      // getDownloadURL(data.snapshot.ref).then((downloadURL) => {
-      //   console.log('File available at', downloadURL);
-      // });
     })
   }
 
-  console.log(user)
-  console.log(values)
-  console.log(userDetail)
-  console.log(imgUrl)
   const userDetailBody = () => {
     return userDetail && userDetail.map(item =>
       <Grid container sx={style.gridcontainer} justifyContent='center'>

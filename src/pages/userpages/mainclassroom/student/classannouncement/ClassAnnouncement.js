@@ -120,7 +120,6 @@ export default function ClassAnnouncement() {
     })
   }
 
-  console.log(announcementData)
   const announcementBody = () => {
     return announcementData && announcementData.map(item =>
       <Grid container sx={style.gridcontainer} justifyContent='space-between'>

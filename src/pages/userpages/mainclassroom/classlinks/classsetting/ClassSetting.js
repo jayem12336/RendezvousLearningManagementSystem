@@ -151,9 +151,6 @@ export default function ClassSetting() {
         )
         return unsubscribe;
     }
-    console.log(classroom)
-
-
 
     const onArchived = () => {
         archiveClass(params.id).then(() => {

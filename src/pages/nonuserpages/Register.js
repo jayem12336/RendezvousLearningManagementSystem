@@ -276,23 +276,6 @@ export default function Register() {
 
     const signup = () => {
 
-        // if (!values.email || !values.password || !values.confirmPassword || !values.displayName) {
-        //     setValues({ ...values, errors: "Please Complete all fields" })
-        //     console.log("sdad");
-        // } else if (values.password !== values.confirmPassword) {
-        //     setValues({ ...values, errors: "Password do not match!" })
-        //     console.log("sdsdadasdasdad");
-        // }
-        // else {
-        //     console.log("di gumagana");
-        //     createUser(values.email, values.password).then(() => {
-        //         createDoc('users',values).then(() => {
-        //             console.log('success')
-        //         })
-        //     })
-        //     // setValues({ ...values, errors: "", isLoading: true });
-        //     // dispatch(registerInitiate(values.email, values.password, values.displayName, history));
-        // }
         if (validateForm()) {
             setLoading(true)
             const data = {
@@ -370,101 +353,6 @@ export default function Register() {
         }
 
     }
-
-    /*
-    const btnSignInWithGoogle = () => {
-        const provider = new GoogleAuthProvider()
-        const auth = getAuth();
-        signInWithPopup(auth, provider)
-            .then(async (result) => {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                // The signed-in user info.
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
-                // Check if user is new
-                const { isNewUser } = getAdditionalUserInfo(result)
-                const userId = result.user.uid
-                const user = result.user;
-                // await handleNew(user);
-                if (isNewUser) {
-                    // await handleNew(user);
-                    const payload = {
-                        displayName: user.displayName,
-                        email: user.email,
-                        ownerId: user.uid,
-                        photoURL: user.photoURL,
-                        phone: values.phone,
-                        isTeacher: values.isTeacher
-                    };
-                    createUserGoogle(user.uid, payload).then(() => {
-                        // dispatch(loginInitiate(values.email, values.password, history));
-                        if (values.isTeacher) {
-                            history.push('/classroom')
-                        } else {
-                            history.push('/studentclassroom')
-                        }
-
-                        console.log('success')
-                    })
-                    // history.push('/classroom')
-                } else {
-                    getUserLogin(result.user.email).then(userData => {
-                        userData.map(item => {
-                            if (item.isTeacher) {
-                                history.push('/classroom')
-                            } else {
-                                history.push('/studentclassroom')
-                            }
-                        })
-                    })
-                    // history.push('/classroom')
-                }
-
-                // handleNew(user);
-
-                // ...
-            }).catch((error) => {
-                // Handle Errors here.
-                const errorMessage = error.message;
-                alert(errorMessage);
-                // The email of the user's account used.
-                const email = error.email;
-                alert(email);
-                // The AuthCredential type that was used.
-                const credential = GoogleAuthProvider.credentialFromError(error);
-                // ...
-                alert(credential);
-            });
-    }
-    */
-
-    /* const handleNew = async (user) => {
-        const docRef = doc(db, 'users', user.uid);
-        // await addDoc(collection(db, "users"), {
-        //     displayName: user.displayName, 
-        //     email: user.email, 
-        //     uid: user.uid, 
-        //     photoURL: user.photoURL, 
-        //     phone: values.phone,
-        //     isTeacher: values.isTeacher
-        //   });
-        const payload = {
-            displayName: user.displayName,
-            email: user.email,
-            uid: user.uid,
-            photoURL: user.photoURL,
-            phone: values.phone,
-            isTeacher: values.isTeacher
-        };
-        // await setDoc(doc(db, "users", user.uid), payload);
-        await setDoc(docRef, payload);
-        // await db.collection('users').doc(user.uid).set(payload, {merge:true})
-        // console.log(payload)
-        // console.log(user)
-    } */
-
-    console.log(error)
-    // console.log(validPhone(values.phone))
 
     return (
         <Container maxWidth disableGutters={true}>

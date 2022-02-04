@@ -18,9 +18,6 @@ import { useParams} from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { useHistory } from 'react-router';
 
-
-
-
 import AddToDriveIcon from '@mui/icons-material/AddToDrive';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
@@ -152,8 +149,6 @@ export default function ClassQuizList() {
       </Grid>
     )
   }
-  console.log(classQuizList)
-  console.log(announcementData)
 
   return (
     <Teacherdrawer headTitle='All Quiz' classCode={params.id}>

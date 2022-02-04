@@ -275,10 +275,6 @@ export default function ClassQuiz() {
     setDuration(e.target.value)
   }
 
-  console.log(quizQuiestions)
-  console.log(answer)
-  console.log('addQuestion', addQuestion)
-
   const quizBody = () => (
     <>
       {quizQuiestions && quizQuiestions.map((item,index) => 

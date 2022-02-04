@@ -91,8 +91,6 @@ export default function MobileViewStudentDrawer({ props }) {
         }
     }*/
 
-    console.log("this is" + props)
-
     return (
         <Box >
             <Drawer

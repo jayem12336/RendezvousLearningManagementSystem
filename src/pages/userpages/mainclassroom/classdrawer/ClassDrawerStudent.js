@@ -175,7 +175,6 @@ export default function StudentDrawer(props) {
         }
     }, [classUser, user])
 
-    console.log(classUser);
 
     /*
     const handleLogOut = () => {
@@ -185,7 +184,6 @@ export default function StudentDrawer(props) {
         }
     } */
 
-    console.log(props)
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />

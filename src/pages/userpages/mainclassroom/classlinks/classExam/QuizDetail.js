@@ -76,7 +76,6 @@ const style = {
 
 export default function QuizDetail() {
   const setQuizResult = (obj) => {
-    console.log(obj);
     //
   }
 
@@ -184,7 +183,6 @@ export default function QuizDetail() {
 
     }
     createClassDoc('exam', params.quizId, data).then(() => {
-      console.log('success')
     })
     studentName.map(student => {
       const studentData = {
@@ -545,13 +543,6 @@ export default function QuizDetail() {
       )}
     </>
   )
-
-  console.log(quizQuiestions)
-  console.log(addQuestion)
-  console.log('duedate', Timestamp.fromDate(new Date(dueDate)))
-  console.log('time', Timestamp.now())
-  console.log('start', isStart)
-  console.log('end', isEnd)
 
   return (
     <Teacherdrawer headTitle={title} classCode={params.id} loading={loading}>

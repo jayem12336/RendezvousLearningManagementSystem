@@ -263,9 +263,6 @@ export default function ClassWork() {
       )
     }
 
-    console.log('announcement', announcement)
-    console.log('classroom', classroom)
-    console.log('quiz', quiz)
     return (
         <Classdrawer>
             <Box component={Grid} container justifyContent="center" sx={{ paddingTop: 5 }}>

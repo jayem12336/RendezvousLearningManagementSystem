@@ -200,7 +200,6 @@ export default function Laboratory() {
   const getLaboratory = () => {
     getDocsByCollection('laboratory').then(item => {
       const data = item.filter(item => item.classCode === params.id)
-      console.log(data)
       if (data.length !== 0) {
         data.map(item => {
           setHtml(item.html)
@@ -278,7 +277,6 @@ export default function Laboratory() {
           }
           saveLabStudent(studentData)
         })
-        console.log('success')
         const timeout = setTimeout(() => {
           history.push(`/classroomdetail/${params.id}`)
         }, 2000)
@@ -286,35 +284,6 @@ export default function Laboratory() {
         return () => clearTimeout(timeout)
       })
     }
-
-    // }
-    // else {
-    //   updateDocsByCollection('laboratory', data).then(() => {
-    //     console.log('success update')
-    //     setOpen({ open: true});
-    //     studentName.map(student => {
-    //       const studentData = {
-    //         html: html,
-    //         css : css,
-    //         js: js,
-    //         ownerId: user.currentUser.uid,
-    //         classCode: params.id,
-    //         created: Timestamp.now(),
-    //         title: labTitle,
-    //         studentId: student,
-    //         instruction: instruction,
-    //         labId: labId ? labId : id
-    //       }
-    //       saveLabStudent(studentData)
-    //       const timeout = setTimeout(() => {
-    //         history.push(`/classroomdetail/${params.id}`)
-    //       }, 2000)
-
-    //       return () => clearTimeout(timeout)
-    //     })
-
-    //   })
-    // }
 
   }
 
@@ -346,8 +315,6 @@ export default function Laboratory() {
     setInstruction(e.target.value)
   }
 
-  console.log(studentName)
-  console.log(studentsList)
   return (
     <Teacherdrawer classCode={params.id} headTitle={'Create Laboratory'}>
       <Helmet>
@@ -440,15 +407,6 @@ export default function Laboratory() {
                 onChange={handleChange}
                 input={<OutlinedInput id="select-multiple-chip" label="Assign Student" />}
                 sx={{ fontWeight: 'bold', color: 'black' }}
-              // renderValue={(selected, item) => (
-              //   console.log(selected),
-              //   <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              //     {selected.map((value) => (
-              //       <Chip key={value} label={value}  />
-              //     ))}
-              //   </Box>
-              // )}
-              // MenuProps={MenuProps}
               >
                 {studentsList.map((name, index) => (
                   <MenuItem

@@ -195,7 +195,6 @@ const getClassData =  () => {
     // const q =  query(classCollection, where('students', "array-contains", user.currentUser.uid));
     // const qTeacher = query(classCollection, where('ownerId', "==", user.currentUser.uid));
     const unsubscribe = onSnapshot(classCollection, (snapshot) => {
-        console.log(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
         setClassroom(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
         // setLoading(false);
     }
@@ -212,7 +211,6 @@ const getClassData =  () => {
             if(doc.data().students.includes(user.currentUser.uid)){
                 history.push(`/studentlaboratory/${classCode}`)
             }else {
-                console.log('not available')
             }
         })
         // setClassroom(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
@@ -220,8 +218,6 @@ const getClassData =  () => {
     }
     )
   }
-
-  console.log(isTeacher)
 
   const classroomBody = () => {
     return (
@@ -301,8 +297,6 @@ const getClassData =  () => {
       </Box>
     )
   }
-
-  console.log(user)
 
     return (
         <Classdrawer>

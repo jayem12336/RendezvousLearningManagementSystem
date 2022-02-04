@@ -6,8 +6,6 @@ import { getUser, acceptStudent, removeStudent, getDocsByCollection } from '../.
 import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
 
-
-
 import {
   Typography,
   Box,
@@ -304,8 +302,6 @@ export default function ClassListDetail() {
     return unsubscribe;
   }
 
-  console.log(assignmentList)
-
   const getClassData = () => {
     const classCollection = collection(db, "createclass")
     const qTeacher = query(classCollection, where('ownerId', "==", user.currentUser.uid), where('classCode', "==", params.id));
@@ -576,9 +572,6 @@ export default function ClassListDetail() {
       )
     )
 }
-
-console.log(user)
-console.log(classCode)
 
 const handleCloseSnack = (event, reason) => {
   if (reason === 'clickaway') {

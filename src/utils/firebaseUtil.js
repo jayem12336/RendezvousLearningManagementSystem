@@ -8,8 +8,6 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { collection, addDoc, getDocs,getDoc, updateDoc, doc, arrayUnion,arrayRemove, setDoc, orderBy, query, where, deleteDoc, Timestamp} from "firebase/firestore"; 
 import {ref, uploadBytesResumable, getDownloadURL} from "firebase/storage";
 
-
-
 /**
  * 
  * @param {string} email 
@@ -124,7 +122,6 @@ export const updateLabScore = async (data, index) => {
   // const labData = [...docSnap.data().laboratory]
   // labData[data.labId].score = data.score
   // const labData = docSnap.data().laboratory[data.labId]
-  console.log(index)
   let labData = {}
   labData[`laboratory.${index}`] = {
     labId: data.labId,
@@ -134,7 +131,6 @@ export const updateLabScore = async (data, index) => {
     score: data.score,
     studentId: data.studentId
   }
-  // console.log(docSnap.data().laboratory[data.labId].score)
   await updateDoc(colRef, labData);
   const colRef2 = doc(db, "createclass", data.classCode, "students", data.studentId, 'laboratory', data.labId)
   await setDoc(colRef2,{score: data.score}, { merge: true });
@@ -151,7 +147,6 @@ export const updateAssignScore = async (data, index) => {
   // const labData = [...docSnap.data().laboratory]
   // labData[data.labId].score = data.score
   // const labData = docSnap.data().laboratory[data.labId]
-  console.log(index)
   let labData = {}
   labData[`assignment.${index}`] = {
     assignmentId: data.assignmentId,
@@ -161,7 +156,6 @@ export const updateAssignScore = async (data, index) => {
     studentId: data.studentId,
     score: data.score,
   }
-  // console.log(docSnap.data().laboratory[data.labId].score)
   await updateDoc(colRef, labData);
   const colRef2 = doc(db, "createclass", data.classCode, "students", data.studentId, 'assignment', data.assignmentId)
   await setDoc(colRef2,{score: data.score}, { merge: true });
@@ -218,7 +212,6 @@ export const saveLabRecord = async (data) => {
 export const saveQuizStudent = async (data) => {
   const colRef = doc(db, "createclass", data.classCode, "students", data.studentId, 'quiz', data.quizId)
   // await setDoc(colRef,data);
-  console.log(data)
   const docInstance = await setDoc(colRef, data);
 
 
@@ -239,7 +232,6 @@ export const saveAssignemntStudent = async (data) => {
 export const saveExamStudent = async (data) => {
   const colRef = doc(db, "createclass", data.classCode, "students", data.studentId, 'exam', data.examId)
   // await setDoc(colRef,data);
-  console.log(data)
   const docInstance = await setDoc(colRef, data);
 
 
@@ -521,15 +513,11 @@ export const updateDocsByCollection = async (collectionName, data) => {
   const getData = collection(db, collectionName)
   const querySnapshot = await getDocs(getData);
   let docId = ''
-  // console.log(data.labId)
-  // console.log(collectionName)
   // querySnapshot.docs.filter(item => item.ownerId === data.ownerId).map((doc) => docId = doc.id)
   docId = querySnapshot.docs.filter(item => item.data().ownerId === data.ownerId).map((doc) => {
-    // console.log(doc.id)
     // let docId = ''
     return doc.id
   })
-  // console.log(docId)
   const docInstance = doc(db, collectionName, data.labId)
   await updateDoc(docInstance, data);
   return docInstance
@@ -540,15 +528,11 @@ export const updateAssignment = async (collectionName, data) => {
   const getData = collection(db, collectionName)
   const querySnapshot = await getDocs(getData);
   let docId = ''
-  // console.log(data.labId)
-  // console.log(collectionName)
   // querySnapshot.docs.filter(item => item.ownerId === data.ownerId).map((doc) => docId = doc.id)
   docId = querySnapshot.docs.filter(item => item.data().ownerId === data.ownerId).map((doc) => {
-    // console.log(doc.id)
     // let docId = ''
     return doc.id
   })
-  // console.log(docId)
   const docInstance = doc(db, collectionName, data.assignmentId)
   await updateDoc(docInstance, data);
   return docInstance
@@ -598,7 +582,6 @@ export const getUser = async () => {
 const user = await auth.currentUser;
 
 if (user) {
-  console.log(user)
   const data = collection(db, 'users')
   const q = query(data,where("ownerId", "==", user.uid))
   const querySnapshot = await getDocs(q);
@@ -613,7 +596,6 @@ if (user) {
   //   if (user) {
   //     // User is signed in, see docs for a list of available properties
   //     // https://firebase.google.com/docs/reference/js/firebase.User
-  //     console.log(user)
   //     return user.uid;
   //     // ...
   //   } else {
@@ -653,7 +635,6 @@ export const archiveClass = async (id) => {
 export const unenrollStudent = async (studentId, id, ownerId, studentData) => {
   const docRef = doc(db, "studentRecord", studentId, "classroom", id);
   removeStudent('createclass', id, ownerId, studentData)
-  // console.log(studentData)
   await updateDoc(docRef, {
     isDeleted: true
   });
@@ -681,13 +662,10 @@ export const uploadImage = async (file) => {
     (snapshot) => {
       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log('Upload is ' + progress + '% done');
       switch (snapshot.state) {
         case 'paused':
-          console.log('Upload is paused');
           break;
         case 'running':
-          console.log('Upload is running');
           break;
       }
     }, 
@@ -713,7 +691,6 @@ export const uploadImage = async (file) => {
       // Upload completed successfully, now we can get the download URL
       let url =''
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        console.log('File available at', downloadURL);
         return downloadURL
       });
     }
@@ -725,9 +702,6 @@ export const uploadFile = async (file, classCode, id, ownerId, studentId, catego
   for (var i = 0; i < file.length; i++) {
     const imageFile = file[i];
     const returnData = uploadImageAsPromise(imageFile)
-    console.log('test',returnData.then(item => {
-      return item
-    }))
   }
 
   function uploadImageAsPromise (imageFile) {
@@ -744,13 +718,10 @@ export const uploadFile = async (file, classCode, id, ownerId, studentId, catego
           (snapshot) => {
             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + progress + '% done');
             switch (snapshot.state) {
               case 'paused':
-                console.log('Upload is paused');
                 break;
               case 'running':
-                console.log('Upload is running');
                 break;
             }
           }, 
@@ -776,7 +747,6 @@ export const uploadFile = async (file, classCode, id, ownerId, studentId, catego
             // Upload completed successfully, now we can get the download URL
             let url =''
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-              console.log('File available at', downloadURL);
               const colFileRef = doc(collection(db, 'files'))
               const dataFile = {
                 category: category,

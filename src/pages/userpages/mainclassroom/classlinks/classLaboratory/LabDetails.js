@@ -54,7 +54,7 @@ const style = {
     borderRadius: 20,
     fontSize: 20,
     width: 150,
-    fontWeight:"bold",
+    fontWeight: "bold",
     marginTop: -2,
     marginBottom: 4,
     textTransform: 'none',
@@ -185,7 +185,6 @@ export default function Laboratory() {
   const getLaboratory = () => {
     getDocsByCollection('laboratory').then(item => {
       const data = item.filter(item => item.classCode === params.id)
-      console.log(data)
       if (data.length !== 0) {
         data.map(item => {
           setHtml(item.html)
@@ -230,35 +229,7 @@ export default function Laboratory() {
       instruction: instruction,
       labId: params.labId
     }
-    // if(isNew){
-    // createClassDoc('laboratory',id, data).then(() => {
-    //   setOpen({ open: true});
-    //   studentName.map(student => {
-    //     const studentData = {
-    //       html: html,
-    //       css : css,
-    //       js: js,
-    //       ownerId: user.currentUser.uid,
-    //       classCode: params.id,
-    //       created: Timestamp.now(),
-    //       title: labTitle,
-    //       studentId: student,
-    //       instruction: instruction,
-    //       labId: params.labId
-    //     }
-    //     saveLabStudent(studentData)
-    //   })
-    //   console.log('success')
-    //   const timeout = setTimeout(() => {
-    //     history.push(`/classroomdetail/${params.id}`)
-    //   }, 2000)
-
-    //   return () => clearTimeout(timeout)
-    // })
-    // }
-    // else {
     updateDocsByCollection('laboratory', data).then(() => {
-      console.log('success update')
       setOpen({ open: true });
       studentName.map(student => {
         const studentData = {
@@ -284,8 +255,6 @@ export default function Laboratory() {
       })
 
     })
-    // }
-
   }
 
   const handleTitle = (e) => {
@@ -308,9 +277,6 @@ export default function Laboratory() {
     setInstruction(e.target.value)
   }
 
-  console.log(studentName)
-  console.log(studentsList)
-  console.log(labId)
   return (
     <Teacherdrawer classCode={params.id} headTitle={title ? title : 'Create Laboratory'}>
       <Helmet>
@@ -395,30 +361,21 @@ export default function Laboratory() {
             </Grid>
 
             <FormControl sx={{ width: 500, marginBottom: 2 }}>
-              <InputLabel id="select-student-label" sx={{fontWeight:"bold"}}>Assign Student</InputLabel>
+              <InputLabel id="select-student-label" sx={{ fontWeight: "bold" }}>Assign Student</InputLabel>
               <Select
                 labelId="select-student-label"
                 multiple
                 value={studentName}
                 onChange={handleChange}
                 input={<OutlinedInput id="select-multiple-chip" label="Assign Student" />}
-                sx={{fontWeight:"bold"}}
-              // renderValue={(selected, item) => (
-              //   console.log(selected),
-              //   <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              //     {selected.map((value) => (
-              //       <Chip key={value} label={value}  />
-              //     ))}
-              //   </Box>
-              // )}
-              // MenuProps={MenuProps}
+                sx={{ fontWeight: "bold" }}
               >
                 {studentsList.map((name, index) => (
                   <MenuItem
                     key={name.value}
                     value={name.value}
                     name={name.value}
-                    sx={{fontWeight:"bold"}}
+                    sx={{ fontWeight: "bold" }}
                   // style={getStyles(name, personName, theme)}
                   >
                     {name.label}
@@ -430,7 +387,7 @@ export default function Laboratory() {
               <Stack direction="row" spacing={1} xs={{ width: 500 }}>
                 {studentName && studentName.map(item => (
                   studentsList.filter(data => data.value === item).map(name => (
-                    <Chip label={name.label}   sx={{fontWeight:"bold"}}/>
+                    <Chip label={name.label} sx={{ fontWeight: "bold" }} />
                   ))
 
                 ))}

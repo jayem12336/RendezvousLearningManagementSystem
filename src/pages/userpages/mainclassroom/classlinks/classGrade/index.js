@@ -177,8 +177,6 @@ export default function StudentList() {
   const getStudentLabData = () => {
     const studentLabCollection = collection(db, "studentRecord")
     onSnapshot(studentLabCollection, (snapshot) => {
-      console.log(snapshot)
-      console.log(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
       setLabList(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
     })
   }
@@ -186,8 +184,6 @@ export default function StudentList() {
   const getStudentAssignmentData = () => {
     const studentLabCollection = collection(db, "studentRecord")
     onSnapshot(studentLabCollection, (snapshot) => {
-      console.log(snapshot)
-      console.log(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
       setAssignmentList(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
     })
   }
@@ -397,9 +393,6 @@ export default function StudentList() {
   const handleRemove = (classCode, userId, studentData) => {
     removeStudent('createclass', classCode, userId, studentData)
   } */
-  console.log(students)
-  console.log(quizList)
-  console.log(labList)
 
   const classroomBody = () => {
     return (

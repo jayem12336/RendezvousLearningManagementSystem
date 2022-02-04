@@ -156,8 +156,6 @@ export default function ClassQuizList() {
       </Grid>
     )
   }
-  console.log(classQuizList)
-  console.log(announcementData)
 
   return (
     <Teacherdrawer headTitle='All Quiz' classCode={params.id}>

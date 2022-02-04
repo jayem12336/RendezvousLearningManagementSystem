@@ -242,9 +242,6 @@ export default function ClassQuiz() {
   }
 
   const handleEditAnswerChange = (e, index) => {
-    console.log(e.target.value)
-    console.log(e.target.name)
-    console.log(index)
     const questionList = [...quizQuiestions];
     questionList.map(item => {
       item.answers[index] = e.target.value
@@ -300,13 +297,13 @@ export default function ClassQuiz() {
             questions: [...quizQuiestions, lastQuestion],
             duration: duration,
             created: Timestamp.now(),
+            startDate: Timestamp.fromDate(new Date(startDate)),
             dueDate: Timestamp.fromDate(new Date(dueDate)),
             subject: subject,
             examId: params.examId,
             studentId: student,
             instruction: instruction,
-            isDone: false,
-            startDate: Timestamp.fromDate(new Date(startDate))
+            isDone: false,         
           }
           saveExamStudent(studentData)
         })
@@ -355,10 +352,6 @@ export default function ClassQuiz() {
     }
     setOpen(false)
   };
-
-  console.log(quizQuiestions)
-  console.log(answer)
-  console.log('addQuestion', addQuestion)
 
   const quizBody = () => (
     <>

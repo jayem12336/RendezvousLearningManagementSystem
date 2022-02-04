@@ -1,5 +1,5 @@
-import React, { useState} from 'react';
-import {joinClass} from '../../../../../utils/firebaseUtil';
+import React, { useState } from 'react';
+import { joinClass } from '../../../../../utils/firebaseUtil';
 import {
     Box,
     Button,
@@ -22,43 +22,43 @@ const style = {
         marginTop: 2,
         width: 300
     },
+    inputText: {
+        fontWeight: 'bold'
+    }
 }
 
-export default function JoinClass({ isJoinClassOpen, toggleJoinClass, userId,student }) {
+export default function JoinClass({ isJoinClassOpen, toggleJoinClass, userId, student }) {
 
     const [classCode, setClassCode] = useState('');
     const [error, setError] = useState('')
     const [open, setOpen] = useState(false)
     const hanldeJoinClass = () => {
-        
-        if(classCode === ''){
+
+        if (classCode === '') {
             setError('Please input class code')
-        }else {
-            joinClass('createclass', classCode, student ).then(item => {
-                console.log(item)
+        } else {
+            joinClass('createclass', classCode, student).then(item => {
                 setClassCode('')
                 setOpen(true)
                 toggleJoinClass()
             })
-            .catch((error) => {
-                setError('No existing class')
-            });
+                .catch((error) => {
+                    setError('No existing class')
+                });
         }
     }
 
     const handleChangeClassCode = (e) => {
         setClassCode(e.target.value)
-        
+
     }
-    
+
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
-          return;
+            return;
         }
         setOpen(false)
-      };
-
-      console.log(userId)
+    };
 
     return (
         <div>
@@ -69,36 +69,39 @@ export default function JoinClass({ isJoinClassOpen, toggleJoinClass, userId,stu
                 onClose={handleClose}
                 message="I love snacks"
             >
-            <Alert onClose={handleClose} severity="success" sx={{ width: '100%', fontWeight: "bold" }}>
-                Request Sent
-            </Alert>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%', fontWeight: "bold" }}>
+                    Request Sent
+                </Alert>
             </Snackbar>
             <Dialog
                 open={isJoinClassOpen}
                 onClose={toggleJoinClass}
                 aria-labelledby="responsive-dialog-title"
             >
-                <DialogTitle id="responsive-dialog-title">
+                <DialogTitle id="responsive-dialog-title" sx={{ fontWeight: 'bold' }}>
                     {"Join Class"}
                 </DialogTitle>
                 <DialogContent>
                     <Box component={Grid} container justifyContent="center" sx={style.formContainer}>
-                        <TextField 
-                            variant="outlined" 
-                            placeholder="Class Code" 
-                            sx={style.textfieldStyle} 
+                        <TextField
+                            variant="outlined"
+                            placeholder="Class Code"
+                            sx={style.textfieldStyle}
                             value={classCode}
-                            onChange ={e => handleChangeClassCode(e)}
-                            error={error? true : false}
+                            onChange={e => handleChangeClassCode(e)}
+                            error={error ? true : false}
                             helperText={error}
+                            InputProps={{
+                                sx: style.inputText
+                            }}
                         />
                     </Box>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={toggleJoinClass}>
+                    <Button autoFocus onClick={toggleJoinClass}  sx={{ fontWeight: 'bold' }}>
                         Back
                     </Button>
-                    <Button onClick={hanldeJoinClass} autoFocus>
+                    <Button onClick={hanldeJoinClass} autoFocus  sx={{ fontWeight: 'bold' }}>
                         Join Class
                     </Button>
                 </DialogActions>

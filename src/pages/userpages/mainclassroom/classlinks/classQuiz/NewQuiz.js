@@ -243,9 +243,6 @@ export default function ClassQuiz() {
   }
 
   const handleEditQuizChange = (e, index) => {
-    console.log(e.target.value)
-    console.log(e.target.name)
-    console.log(index)
     const questionList = [...quizQuiestions];
     questionList[index][e.target.name] = e.target.value;
     // setAddQuestion(questionList)
@@ -253,9 +250,6 @@ export default function ClassQuiz() {
   }
 
   const handleEditAnswerChange = (e, index) => {
-    console.log(e.target.value)
-    console.log(e.target.name)
-    console.log(index)
     const questionList = [...quizQuiestions];
     questionList.map(item => {
       item.answers[index] = e.target.value
@@ -284,7 +278,6 @@ export default function ClassQuiz() {
       startDate: Timestamp.fromDate(new Date(startDate))
     }
     if (
-
       quizTitle === '' ||
       dueDate === '' ||
       instruction === ''
@@ -310,6 +303,7 @@ export default function ClassQuiz() {
             title: quizTitle,
             questions: [...quizQuiestions, lastQuestion],
             duration: duration,
+            startDate: Timestamp.fromDate(new Date(startDate)),
             created: Timestamp.now(),
             dueDate: Timestamp.fromDate(new Date(dueDate)),
             subject: subject,
@@ -317,7 +311,6 @@ export default function ClassQuiz() {
             studentId: student,
             instruction: instruction,
             isDone: false,
-            startDate: Timestamp.fromDate(new Date(startDate))
           }
           saveQuizStudent(studentData)
         })
@@ -366,10 +359,6 @@ export default function ClassQuiz() {
     }
     setOpen(false)
   };
-
-  console.log(quizQuiestions)
-  console.log(answer)
-  console.log('addQuestion', addQuestion)
 
   const quizBody = () => (
     <>

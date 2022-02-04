@@ -210,7 +210,6 @@ export default function Laboratory() {
   const getAssignment = () => {
     getDocsByCollection('assignment').then(item => {
       const data = item.filter(item => item.classCode === params.id)
-      console.log(data)
       if (data.length !== 0) {
         data.map(item => {
           setAssignmentTitle(item.title)
@@ -252,11 +251,9 @@ export default function Laboratory() {
     saveAssignmentRecord(studentData)
     const file = acceptedFiles.map(file => Object.assign(file))
     uploadFile(file, params.id, params.assignmentId, '', user.currentUser.uid, 'assignment').then(data => {
-      console.log(data)
     })
     const timeout = setTimeout(() => {
       history.push(`/studentclassroomdetail/${params.id}`)
-      console.log(studentData)
     }, 2000)
     return () => clearTimeout(timeout)
   }
@@ -281,9 +278,6 @@ export default function Laboratory() {
     setInstruction(e.target.value)
   }
 
-  console.log(studentName)
-  console.log(studentsList)
-  console.log(fileList)
   return (
     <Studentdrawer classCode={params.id} headTitle={title ? title : 'Create Assignment'}>
       <Helmet>
@@ -305,7 +299,7 @@ export default function Laboratory() {
       <Box component={Grid} container justifyContent="center" sx={{ paddingTop: 10 }}>
         <>
           <Grid container justifyContent="center">
-            <Typography sx={{ marginBottom: 2, fontSize: 30 }}>Assignment Details sdadsa</Typography>
+            <Typography sx={{ marginBottom: 2, fontSize: 30, fontWeight: 'bold' }}>Assignment Details</Typography>
           </Grid>
           <Grid xs={12} justifyContent='space-between' container>
             <Grid xs={12} justifyContent='flex-start' container>

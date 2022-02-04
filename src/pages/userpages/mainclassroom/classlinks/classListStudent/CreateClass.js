@@ -43,7 +43,6 @@ export default function CreateClass({ isClassOpen, toggleClass }) {
 
     const { user } = useSelector((state) => state);
 
-    console.log(id);
     const createClass = () => {
         if (className === "" || Section === "" || Room === "" || Subject === "") {
             alert("please fill up the following fields")

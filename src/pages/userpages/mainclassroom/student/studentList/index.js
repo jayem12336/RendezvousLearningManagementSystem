@@ -172,8 +172,6 @@ export default function StudentList() {
     removeStudent('createclass', classCode, userId, studentData)
   }
 
-  console.log(classroom)
-
   const classroomBody = () => {
     return (
       <Box component={Grid} container justifyContent="center" >

@@ -312,7 +312,6 @@ export default function Login() {
                 alert(credential);
             });
     } */
-    console.log(values)
 
     return (
         <Container maxWidth disableGutters={true}>

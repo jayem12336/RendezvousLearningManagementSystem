@@ -212,7 +212,6 @@ export default function Laboratory() {
   const getAssignment = () => {
     getDocsByCollection('assignment').then(item => {
       const data = item.filter(item => item.classCode === params.id)
-      console.log(data)
       if (data.length !== 0) {
         data.map(item => {
           setAssignmentTitle(item.title)
@@ -253,11 +252,9 @@ export default function Laboratory() {
     saveAssignmentRecord(studentData)
     const file = acceptedFiles.map(file => Object.assign(file))
     uploadFile(file, params.id, params.assignmentId, '', user.currentUser.uid, 'assignment').then(data => {
-      console.log(data)
     })
     const timeout = setTimeout(() => {
       history.push(`/studentclassroomdetail/${params.id}`)
-      console.log(studentData)
     }, 2000)
     return () => clearTimeout(timeout)
   }
@@ -282,9 +279,6 @@ export default function Laboratory() {
     setInstruction(e.target.value)
   }
 
-  console.log(studentName)
-  console.log(studentsList)
-  console.log(fileList)
   return (
     <Teacherdrawer classCode={params.id} headTitle={title ? title : 'Create Laboratory'}>
       <Helmet>

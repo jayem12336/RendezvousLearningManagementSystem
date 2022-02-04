@@ -168,7 +168,6 @@ export default function ClassQuiz() {
       dueDate: Timestamp.fromDate(new Date(dueDate)),
       subject: subject
     }
-    console.log(data)
     createDoc('quiz',data).then(() => {
       history.push(`/quiz`)
     })
@@ -302,15 +301,6 @@ export default function ClassQuiz() {
                     value={studentName}
                     onChange={handleChange}
                     input={<OutlinedInput id="select-multiple-chip" label="Assign Student" />}
-                    // renderValue={(selected, item) => (
-                    //   console.log(selected),
-                    //   <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                    //     {selected.map((value) => (
-                    //       <Chip key={value} label={value}  />
-                    //     ))}
-                    //   </Box>
-                    // )}
-                    // MenuProps={MenuProps}
                   >
                     {studentsList.map((name) => (
                       <MenuItem

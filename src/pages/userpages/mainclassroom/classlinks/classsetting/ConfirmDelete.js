@@ -46,8 +46,6 @@ export default function ConfirmDelete({ isOpen, handleCloseConfirm, confirmDelet
         
     }
 
-      console.log(userId)
-
     return (
         <div>
             <Dialog

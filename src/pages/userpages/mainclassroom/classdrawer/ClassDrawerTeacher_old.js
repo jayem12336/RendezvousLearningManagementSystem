@@ -144,16 +144,12 @@ const { user } = useSelector((state) => state);
         }
     }, [classUser, user])
 
-    console.log(classUser);
-
     const handleLogOut = () => {
         if (user) {
             dispatch(logoutInitiate());
             history.push('/');
         }
     }
-
-    console.log(props)
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />

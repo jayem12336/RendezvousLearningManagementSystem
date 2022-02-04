@@ -167,7 +167,6 @@ export default function Laboratory() {
   const getLaboratory = () => {
     getDocsByCollection('laboratory').then(item => {
       const data = item.filter(item => item.classCode === params.id)
-      console.log(data)
       if (data.length !== 0) {
         data.map(item => {
           setHtml(item.html)
@@ -221,42 +220,12 @@ export default function Laboratory() {
         }
         saveLabStudent(studentData)
       })
-      console.log('success')
       const timeout = setTimeout(() => {
         history.push(`/classroomdetail/${params.id}`)
       }, 2000)
 
       return () => clearTimeout(timeout)
     })
-    // }
-    // else {
-    //   updateDocsByCollection('laboratory', data).then(() => {
-    //     console.log('success update')
-    //     setOpen({ open: true});
-    //     studentName.map(student => {
-    //       const studentData = {
-    //         html: html,
-    //         css : css,
-    //         js: js,
-    //         ownerId: user.currentUser.uid,
-    //         classCode: params.id,
-    //         created: Timestamp.now(),
-    //         title: labTitle,
-    //         studentId: student,
-    //         instruction: instruction,
-    //         labId: labId ? labId : id
-    //       }
-    //       saveLabStudent(studentData)
-    //       const timeout = setTimeout(() => {
-    //         history.push(`/classroomdetail/${params.id}`)
-    //       }, 2000)
-
-    //       return () => clearTimeout(timeout)
-    //     })
-
-    //   })
-    // }
-
   }
 
   const handleTitle = (e) => {
@@ -278,9 +247,6 @@ export default function Laboratory() {
   const handleInstruction = (e) => {
     setInstruction(e.target.value)
   }
-
-  console.log(studentName)
-  console.log(studentsList)
   return (
     <Teacherdrawer classCode={params.id}>
       <Snackbar
